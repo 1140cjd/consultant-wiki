@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exit Factor Charlotte — Consultant Onboarding Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;}
+  .controls{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+  .btn{background:#2a2a3e;color:white;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:background 0.2s;font-family:'Inter',sans-serif;}
+  .btn:hover{background:#3a3a5e;}
+  .btn:disabled{opacity:0.3;cursor:not-allowed;}
+  .slide-counter{color:#9ca3af;font-size:13px;font-weight:500;min-width:80px;text-align:center;}
+  .slide-wrapper{width:100%;max-width:960px;aspect-ratio:16/9;position:relative;border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6);}
+  .slide{position:absolute;inset:0;display:none;}
+  .slide.active{display:flex;}
+  .dark{background:#0a0a0a;color:white;}
+  .light{background:#ffffff;color:#0a0a0a;}
+  .amber-bg{background:#f59e0b;color:#0a0a0a;}
+  .gray-bg{background:#f8f8f8;color:#0a0a0a;}
+  .dark2{background:#0f172a;color:white;}
+  .gradient{background:linear-gradient(135deg,#0a0a0a 0%,#1c1c2e 100%);color:white;}
+  .full{width:100%;height:100%;}
+  .center{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px;}
+  .left-content{display:flex;flex-direction:column;justify-content:center;padding:60px 70px;}
+  .split{display:grid;grid-template-columns:1fr 1fr;height:100%;}
+  .pad{padding:50px 60px;}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#f59e0b;margin-bottom:12px;}
+  .eyebrow-dark{color:#6b7280;}
+  .h1{font-size:52px;font-weight:900;line-height:1.05;}
+  .h2{font-size:38px;font-weight:800;line-height:1.1;}
+  .h3{font-size:28px;font-weight:800;line-height:1.2;}
+  .h4{font-size:20px;font-weight:700;}
+  .body{font-size:15px;line-height:1.7;color:#d1d5db;}
+  .body-dark{color:#374151;}
+  .sub{font-size:18px;line-height:1.6;color:#9ca3af;margin-top:16px;max-width:600px;}
+  .amber-line{width:56px;height:4px;background:#f59e0b;border-radius:2px;margin:16px 0;}
+  .amber-line-sm{width:36px;height:3px;background:#f59e0b;border-radius:2px;margin:10px 0;}
+  .stat-row{display:flex;gap:40px;margin-top:40px;padding-top:40px;border-top:1px solid #2a2a2a;}
+  .stat-num{font-size:36px;font-weight:900;color:#f59e0b;}
+  .stat-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:#6b7280;margin-top:4px;}
+  .badge{display:inline-block;background:#f59e0b;color:#0a0a0a;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:20px;}
+  .card{background:#f8f9fa;border-radius:12px;padding:20px 24px;border:1px solid #e5e7eb;}
+  .card-dark{background:#1a1a2e;border-radius:12px;padding:20px 24px;border:1px solid #2a2a3e;}
+  .card-amber{background:#fef3c7;border-radius:12px;padding:20px 24px;border:1px solid #f59e0b;}
+  .phase{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid #1e293b;}
+  .phase:last-child{border-bottom:none;}
+  .phase-num{width:28px;height:28px;background:#f59e0b;color:#0a0a0a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+  .phase-title{font-size:14px;font-weight:700;color:white;}
+  .phase-desc{font-size:12px;color:#64748b;margin-top:2px;}
+  .check{display:flex;gap:10px;margin-bottom:8px;}
+  .check-dot{width:8px;height:8px;background:#f59e0b;border-radius:50%;flex-shrink:0;margin-top:5px;}
+  .check-text{font-size:13px;color:#374151;line-height:1.5;}
+  .check-text-w{color:#d1d5db;}
+  .week-pill{background:#1e293b;border-radius:8px;padding:14px 18px;margin-bottom:8px;}
+  .week-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f59e0b;}
+  .week-title{font-size:13px;font-weight:700;color:white;margin-top:2px;}
+  .week-items{font-size:11.5px;color:#64748b;margin-top:4px;}
+  .kpi-row{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid #1e293b;}
+  .kpi-row:last-child{border-bottom:none;}
+  .kpi-name{font-size:12.5px;color:#cbd5e1;flex:1;}
+  .kpi-target{font-size:11px;font-weight:700;background:#1e293b;color:#f59e0b;padding:3px 8px;border-radius:20px;white-space:nowrap;}
+  .big-num{font-size:64px;font-weight:900;color:#f59e0b;line-height:1;}
+  .big-label{font-size:14px;color:#9ca3af;margin-top:8px;font-weight:500;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .icon-card{text-align:center;padding:20px 16px;background:#1e293b;border-radius:12px;}
+  .icon-card-light{text-align:center;padding:20px 16px;background:#f8f9fa;border-radius:12px;border:1px solid #e5e7eb;}
+  .icon{font-size:32px;margin-bottom:8px;}
+  .icon-title{font-size:13px;font-weight:700;color:white;}
+  .icon-title-dark{color:#0a0a0a;}
+  .icon-sub{font-size:11px;color:#64748b;margin-top:4px;}
+  .icon-sub-dark{color:#6b7280;}
+  .timeline{display:flex;gap:0;}
+  .tl-step{flex:1;position:relative;}
+  .tl-step:not(:last-child)::after{content:'';position:absolute;top:16px;left:50%;width:100%;height:2px;background:#1e293b;}
+  .tl-dot{width:32px;height:32px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#0a0a0a;margin:0 auto 10px;position:relative;z-index:1;}
+  .tl-label{font-size:11px;font-weight:700;color:#cbd5e1;text-align:center;}
+  .tl-sub{font-size:10px;color:#64748b;text-align:center;margin-top:3px;}
+  .bottom-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:#f59e0b;}
+  .tag{display:inline-block;background:#f59e0b20;color:#f59e0b;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin:2px;}
+  .thumbnails{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px;max-width:960px;}
+  .thumb{width:60px;height:38px;border-radius:4px;cursor:pointer;opacity:0.5;border:2px solid transparent;transition:all 0.2s;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .thumb:hover{opacity:0.8;}
+  .thumb.active-thumb{opacity:1;border-color:#f59e0b;}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← Prev</button>
+  <span class="slide-counter" id="counter">1 / 14</span>
+  <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+  <button class="btn" onclick="toggleFullscreen()" style="margin-left:8px;">⛶ Fullscreen</button>
+</div>
+
+<div class="slide-wrapper" id="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide dark active">
+    <div class="full" style="display:flex;">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:70px 80px;">
+        <div class="eyebrow">Exit Factor Charlotte</div>
+        <div class="h1" style="margin-bottom:20px;">Welcome to<br>Exit Factor.<br><span style="color:#f59e0b;">Let's Build.</span></div>
+        <div class="amber-line"></div>
+        <div class="sub">Your complete onboarding system — from day one through your first 90 days and beyond.</div>
+        <div class="stat-row">
+          <div><div class="stat-num">4</div><div class="stat-label">Week Ramp-Up</div></div>
+          <div><div class="stat-num">90</div><div class="stat-label">Day Roadmap</div></div>
+          <div><div class="stat-num">$10T</div><div class="stat-label">Market Opportunity</div></div>
+        </div>
+      </div>
+      <div style="width:280px;background:#f59e0b;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 30px;">
+        <div style="font-size:60px;margin-bottom:16px;">🚀</div>
+        <div style="font-size:13px;font-weight:800;color:#0a0a0a;text-align:center;text-transform:uppercase;letter-spacing:2px;">Consultant Onboarding & Success System</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: THE OPPORTUNITY -->
+  <div class="slide gradient">
+    <div class="full center">
+      <div class="eyebrow">Why This Matters</div>
+      <div class="h2" style="margin-bottom:16px;">The Biggest Wealth Transfer<br>in American History</div>
+      <div class="amber-line" style="margin:0 auto 24px;"></div>
+      <div class="three-col" style="max-width:780px;margin-top:8px;">
+        <div class="icon-card"><div class="icon">💰</div><div class="big-num" style="font-size:44px;">$10T</div><div class="big-label">in business wealth transferring over the next decade</div></div>
+        <div class="icon-card"><div class="icon">👴</div><div class="big-num" style="font-size:44px;">75%</div><div class="big-label">of business owners have no formal exit plan in place</div></div>
+        <div class="icon-card"><div class="icon">📉</div><div class="big-num" style="font-size:44px;">80%</div><div class="big-label">of businesses listed for sale never actually sell</div></div>
+      </div>
+      <div style="margin-top:32px;background:#f59e0b;border-radius:10px;padding:16px 32px;max-width:620px;">
+        <div style="font-size:15px;font-weight:700;color:#0a0a0a;text-align:center;">The problem is massive. The owners who need us don't know we exist yet.<br><strong>That's your job to change.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: WHO WE SERVE -->
+  <div class="slide light">
+    <div class="split">
+      <div class="pad" style="display:flex;flex-direction:column;justify-content:center;background:#0a0a0a;">
+        <div class="eyebrow">Ideal Client</div>
+        <div class="h3" style="color:white;margin-bottom:12px;">Who We Help</div>
+        <div class="amber-line"></div>
+        <div style="margin-top:16px;">
+          <div class="phase"><div class="phase-num">✓</div><div><div class="phase-title">Business owners with $1M–$20M in revenue</div><div class="phase-desc">Often in the $2M–$10M sweet spot</div></div></div>
+          <div class="phase"><div class="phase-num">✓</div><div><div class="phase-title">2 to 15 years from a potential exit</div><div class="phase-desc">Far enough to fix it; close enough to feel urgency</div></div></div>
+          <div class="phase"><div class="phase-num">✓</div><div><div class="phase-title">Unaware of their "value gap"</div><div class="phase-desc">The #1 problem we solve</div></div></div>
+          <div class="phase"><div class="phase-num">✓</div><div><div class="phase-title">Industries with transferable businesses</div><div class="phase-desc">Services, manufacturing, distribution, healthcare, trades</div></div></div>
+        </div>
+      </div>
+      <div class="pad" style="display:flex;flex-direction:column;justify-content:center;background:#fafafa;">
+        <div class="eyebrow eyebrow-dark">The Core Problem</div>
+        <div class="h4" style="margin-bottom:16px;">What Is the Value Gap?</div>
+        <div class="amber-line-sm"></div>
+        <p class="body-dark" style="margin-top:12px;font-size:14px;line-height:1.7;">Most business owners have 80–90% of their net worth tied up in their business — but have never had it professionally valued.</p>
+        <div class="card" style="margin-top:20px;">
+          <div style="font-size:13px;font-weight:700;color:#0a0a0a;margin-bottom:8px;">The Gap Looks Like This:</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Business worth today: <strong>$2.5M</strong></div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">What owner needs for retirement: <strong>$4M</strong></div></div>
+          <div class="check" style="margin-top:8px;"><div style="width:8px;height:8px;background:#ef4444;border-radius:50%;flex-shrink:0;margin-top:5px;"></div><div class="check-text"><strong style="color:#ef4444;">Value Gap: $1.5M — and they don't know it yet</strong></div></div>
+        </div>
+        <p class="body-dark" style="margin-top:16px;font-size:13px;">Exit Factor helps owners close the gap — and execute the exit on their terms.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: THE 5-PHASE METHODOLOGY -->
+  <div class="slide dark2">
+    <div class="full left-content" style="padding:50px 70px;">
+      <div class="eyebrow">Our Methodology</div>
+      <div class="h3" style="color:white;margin-bottom:8px;">The Exit Factor 5-Phase Process</div>
+      <div class="amber-line"></div>
+      <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;">
+        <div class="phase" style="border-color:#2a3a4e;"><div class="phase-num">1</div><div><div class="phase-title">Discovery & Assessment</div><div class="phase-desc">Evaluate where the business stands today across all value drivers</div></div></div>
+        <div class="phase" style="border-color:#2a3a4e;"><div class="phase-num">2</div><div><div class="phase-title">Value Gap Analysis</div><div class="phase-desc">Quantify the gap between current value and exit-ready value</div></div></div>
+        <div class="phase" style="border-color:#2a3a4e;"><div class="phase-num">3</div><div><div class="phase-title">Value Acceleration Planning</div><div class="phase-desc">Build a roadmap to close the gap through the 4 C's</div></div></div>
+        <div class="phase" style="border-color:#2a3a4e;"><div class="phase-num">4</div><div><div class="phase-title">Exit Strategy Development</div><div class="phase-desc">Define exit options: internal, external, or legacy transfer</div></div></div>
+        <div class="phase" style="border-color:#2a3a4e;grid-column:1/-1;"><div class="phase-num">5</div><div><div class="phase-title">Execution & Transition</div><div class="phase-desc">Guide the owner through the actual transaction and post-exit planning</div></div></div>
+      </div>
+      <div style="margin-top:24px;background:#f59e0b;border-radius:8px;padding:12px 20px;display:inline-block;">
+        <span style="font-size:13px;font-weight:700;color:#0a0a0a;">Be able to explain each phase naturally before your first prospect meeting.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: YOUR FIRST 4 WEEKS -->
+  <div class="slide light">
+    <div class="full" style="display:flex;flex-direction:column;padding:50px 70px;">
+      <div class="eyebrow eyebrow-dark">Before Training</div>
+      <div class="h3" style="margin-bottom:6px;">Your 4-Week Ramp-Up Plan</div>
+      <div class="amber-line-sm"></div>
+      <div class="two-col" style="margin-top:20px;flex:1;">
+        <div>
+          <div class="week-pill" style="background:#0a0a0a;"><div class="week-label">Week 1</div><div class="week-title">Know Your Company</div><div class="week-items" style="color:#9ca3af;">5-phase methodology · ICP · service menu · differentiation</div></div>
+          <div class="week-pill" style="background:#0a0a0a;"><div class="week-label">Week 2</div><div class="week-title">Know Your Market</div><div class="week-items" style="color:#9ca3af;">Industry research · Charlotte landscape · referral partner map</div></div>
+        </div>
+        <div>
+          <div class="week-pill" style="background:#0a0a0a;"><div class="week-label">Week 3</div><div class="week-title">Messaging & Tools</div><div class="week-items" style="color:#9ca3af;">Elevator pitch · LinkedIn · CRM setup · shadow a Discovery Call</div></div>
+          <div class="week-pill" style="background:#0a0a0a;"><div class="week-label">Week 4</div><div class="week-title">Network Activation</div><div class="week-items" style="color:#9ca3af;">List of 100 · referral group visits · chamber events · outreach blitz</div></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:12px 18px;">
+        <span style="font-size:13px;font-weight:600;color:#92400e;">🎯 Goal: Arrive at training prepared — not just present. Your List of 100 should be done and your pitch should be natural.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: LIST OF 100 -->
+  <div class="slide dark">
+    <div class="split">
+      <div class="pad" style="display:flex;flex-direction:column;justify-content:center;background:#f59e0b;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#92400e;margin-bottom:12px;">Core Activity</div>
+        <div style="font-size:80px;font-weight:900;color:#0a0a0a;line-height:1;">100</div>
+        <div style="font-size:24px;font-weight:800;color:#0a0a0a;margin-top:4px;">The List of 100</div>
+        <div style="font-size:14px;color:#78350f;margin-top:12px;line-height:1.6;">Your most important pre-training deliverable. Every conversation, every referral, every first client — starts here.</div>
+      </div>
+      <div class="pad" style="display:flex;flex-direction:column;justify-content:center;background:#0a0a0a;">
+        <div class="eyebrow">Build It Right</div>
+        <div style="margin-top:8px;">
+          <div class="phase"><div class="phase-num" style="background:#ef4444;color:white;font-size:10px;">T1</div><div><div class="phase-title">Tier 1 — 20 Names</div><div class="phase-desc">Warm, high-influence. Schedule 1:1s before training. These are your first referral partners and early advocates.</div></div></div>
+          <div class="phase"><div class="phase-num" style="background:#f59e0b;font-size:10px;">T2</div><div><div class="phase-title">Tier 2 — 40 Names</div><div class="phase-desc">Warm, moderate. Enter into CRM. Reach out in your first 30 days post-training.</div></div></div>
+          <div class="phase"><div class="phase-num" style="background:#374151;color:#9ca3af;font-size:10px;">T3</div><div><div class="phase-title">Tier 3 — 40 Names</div><div class="phase-desc">Loose connections. Warm up over time through LinkedIn and events.</div></div></div>
+        </div>
+        <div style="margin-top:20px;background:#1e293b;border-radius:8px;padding:12px 16px;">
+          <div style="font-size:12px;color:#94a3b8;">Log all 100 in CRM. Tag by type: <span class="tag">Referral Partner</span> <span class="tag">Prospect</span> <span class="tag">Connector</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: REFERRAL PARTNER ECOSYSTEM -->
+  <div class="slide gray-bg">
+    <div class="full left-content" style="padding:50px 70px;">
+      <div class="eyebrow eyebrow-dark">Lead Generation Strategy</div>
+      <div class="h3" style="margin-bottom:8px;">Your Referral Partner Ecosystem</div>
+      <div class="amber-line-sm"></div>
+      <p style="font-size:14px;color:#6b7280;margin-top:8px;margin-bottom:24px;">Referral partners are your #1 source of qualified prospects. Build these relationships first — everything flows from here.</p>
+      <div class="three-col">
+        <div class="icon-card-light"><div class="icon">📊</div><div class="icon-title-dark" style="font-size:13px;">CPAs &<br>Accountants</div><div class="icon-sub-dark">Every business owner has a CPA. They're the most trusted advisor in the room.</div></div>
+        <div class="icon-card-light"><div class="icon">💼</div><div class="icon-title-dark" style="font-size:13px;">Financial Advisors &<br>Wealth Managers</div><div class="icon-sub-dark">They need to know the business value to plan the owner's retirement.</div></div>
+        <div class="icon-card-light"><div class="icon">⚖️</div><div class="icon-title-dark" style="font-size:13px;">Estate &<br>Business Attorneys</div><div class="icon-sub-dark">Structuring exits, succession planning, and business transfers.</div></div>
+        <div class="icon-card-light"><div class="icon">🏦</div><div class="icon-title-dark" style="font-size:13px;">Commercial<br>Bankers</div><div class="icon-sub-dark">They know which business owners are preparing to sell or expand.</div></div>
+        <div class="icon-card-light"><div class="icon">🤝</div><div class="icon-title-dark" style="font-size:13px;">Business<br>Brokers</div><div class="icon-sub-dark">They see deals daily. Pre-exit clients can be co-referred.</div></div>
+        <div class="icon-card-light"><div class="icon">📣</div><div class="icon-title-dark" style="font-size:13px;">BNI &<br>Referral Groups</div><div class="icon-sub-dark">Structured referral environments where you're the only exit planner in the room.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: POST-TRAINING MONTH 1 -->
+  <div class="slide dark2">
+    <div class="full left-content">
+      <div class="eyebrow">Post-Training</div>
+      <div class="h3" style="color:white;margin-bottom:8px;">Your First 30 Days — By the Week</div>
+      <div class="amber-line"></div>
+      <div class="timeline" style="margin:28px 0 20px;">
+        <div class="tl-step"><div class="tl-dot">1</div><div class="tl-label">Relaunch</div><div class="tl-sub">Announce & activate</div></div>
+        <div class="tl-step"><div class="tl-dot">2</div><div class="tl-label">Partner Blitz</div><div class="tl-sub">Plant referral seeds</div></div>
+        <div class="tl-step"><div class="tl-dot">3</div><div class="tl-label">Prospect Pipeline</div><div class="tl-sub">First conversations</div></div>
+        <div class="tl-step"><div class="tl-dot" style="background:#ef4444;color:white;">4</div><div class="tl-label">First Close</div><div class="tl-sub">Assessment sale attempt</div></div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Week 1 Priorities</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Send announcement to full List of 100</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Post LinkedIn training announcement</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Call top 5 Tier 1 contacts — schedule 1:1s</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Attend first referral group meeting</div></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Week 4 Goals</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Hold 2+ Discovery Calls already scheduled</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Present at least 1 Assessment proposal</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Close your first Assessment sale</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text check-text-w">Have 2+ referral partner agreements in motion</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: MONTHS 2-3 -->
+  <div class="slide light">
+    <div class="full left-content" style="padding:45px 70px;">
+      <div class="eyebrow eyebrow-dark">90-Day Roadmap</div>
+      <div class="h3" style="margin-bottom:8px;">Months 2 & 3 — Three Tracks</div>
+      <div class="amber-line-sm"></div>
+      <div class="three-col" style="margin-top:20px;">
+        <div class="card">
+          <div style="font-size:20px;margin-bottom:8px;">📣</div>
+          <div style="font-size:13px;font-weight:800;color:#0a0a0a;margin-bottom:12px;">Marketing</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">2x weekly LinkedIn posts</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">2 referral group meetings/week</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Monthly value email to full list</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">1 speaking opportunity by Month 3</div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:20px;margin-bottom:8px;">💼</div>
+          <div style="font-size:13px;font-weight:800;color:#0a0a0a;margin-bottom:12px;">Selling</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">4–6 Discovery Calls/month</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">2–4 second call/proposals</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">2 assessments closed/month (target)</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">2 new referral agreements/month</div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:20px;margin-bottom:8px;">📦</div>
+          <div style="font-size:13px;font-weight:800;color:#0a0a0a;margin-bottom:12px;">Delivering</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Begin delivery within 7 days of sale</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Deliver on time, every time</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Use debrief to pitch engagement</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Collect client testimonials</div></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;background:#0a0a0a;border-radius:8px;padding:12px 18px;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:18px;">⚡</span>
+        <span style="font-size:13px;font-weight:600;color:white;">Month 3 = Retrospective. Double down on what's working. Systematize what's repeatable.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: KPI DASHBOARD -->
+  <div class="slide dark">
+    <div class="split">
+      <div class="pad" style="display:flex;flex-direction:column;justify-content:center;background:#0a0a0a;">
+        <div class="eyebrow">Weekly Scorecard</div>
+        <div class="h4" style="color:white;margin-bottom:8px;">KPIs & Leading Indicators</div>
+        <div class="amber-line-sm"></div>
+        <p style="font-size:13px;color:#64748b;margin-top:8px;margin-bottom:20px;">Hit these activity numbers consistently and revenue results will follow.</p>
+        <div style="background:#0f172a;border-radius:10px;padding:16px;">
+          <div class="kpi-row"><div class="kpi-name">Referral Group Meetings</div><div class="kpi-target">2 / week</div></div>
+          <div class="kpi-row"><div class="kpi-name">Referral Partner 1:1s</div><div class="kpi-target">3–4 / week</div></div>
+          <div class="kpi-row"><div class="kpi-name">Chamber / Association Events</div><div class="kpi-target">2 / month</div></div>
+          <div class="kpi-row"><div class="kpi-name">New CRM Contacts Added</div><div class="kpi-target">10 / week</div></div>
+          <div class="kpi-row"><div class="kpi-name">New Referral Agreements</div><div class="kpi-target">2 / month</div></div>
+        </div>
+      </div>
+      <div class="pad" style="display:flex;flex-direction:column;justify-content:center;background:#0f172a;">
+        <div style="background:#1e293b;border-radius:10px;padding:16px;margin-bottom:12px;">
+          <div class="kpi-row" style="border-color:#2a3a4e;"><div class="kpi-name">Prospect Discovery Meetings</div><div class="kpi-target">4–6 / month</div></div>
+          <div class="kpi-row" style="border-color:#2a3a4e;"><div class="kpi-name">2nd Call / Proposal Conversations</div><div class="kpi-target">2–4 / month</div></div>
+          <div class="kpi-row" style="border-color:#2a3a4e;"><div class="kpi-name">Assessments Proposed</div><div class="kpi-target">3–4 / month</div></div>
+          <div class="kpi-row" style="border-color:#2a3a4e;"><div class="kpi-name">Assessments Sold</div><div class="kpi-target">1–2 / month</div></div>
+          <div class="kpi-row" style="border-color:#2a3a4e;"><div class="kpi-name">Engagements Sold</div><div class="kpi-target">1 / quarter</div></div>
+          <div class="kpi-row" style="border-color:#2a3a4e;border-bottom:none;"><div class="kpi-name">Outbound Calls / Messages</div><div class="kpi-target">15–20 / week</div></div>
+        </div>
+        <div style="background:#f59e0b;border-radius:8px;padding:12px 16px;">
+          <div style="font-size:12px;font-weight:700;color:#0a0a0a;">📊 Track every KPI every Friday. Share with your director bi-weekly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: THE SALES PROCESS -->
+  <div class="slide gray-bg">
+    <div class="full left-content" style="padding:50px 70px;">
+      <div class="eyebrow eyebrow-dark">Your Sales Process</div>
+      <div class="h3" style="margin-bottom:8px;">From Referral to Revenue</div>
+      <div class="amber-line-sm"></div>
+      <div class="timeline" style="margin:30px 0 24px;justify-content:space-between;">
+        <div class="tl-step"><div class="tl-dot" style="background:#1e293b;color:white;">1</div><div class="tl-label" style="color:#374151;">Referral Partner<br>Intro</div></div>
+        <div class="tl-step"><div class="tl-dot" style="background:#1e293b;color:white;">2</div><div class="tl-label" style="color:#374151;">Discovery<br>Meeting</div></div>
+        <div class="tl-step"><div class="tl-dot" style="background:#1e293b;color:white;">3</div><div class="tl-label" style="color:#374151;">2nd Call /<br>Proposal</div></div>
+        <div class="tl-step"><div class="tl-dot">4</div><div class="tl-label" style="color:#374151;font-weight:800;">Assessment<br>Sale ✓</div></div>
+        <div class="tl-step"><div class="tl-dot" style="background:#16a34a;color:white;">5</div><div class="tl-label" style="color:#374151;">Engagement<br>Sale 💰</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card-amber">
+          <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:10px;">The Discovery Meeting Goal</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Understand the owner's story and timeline</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Surface the value gap and exit readiness issues</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Create urgency around getting a proper assessment</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text">Never leave without a scheduled next step</div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">Common Objections & Responses</div>
+          <div class="check"><div class="check-dot"></div><div class="check-text"><strong>"I'm not planning to sell anytime soon."</strong> — Most owners exit 2–3 years sooner than planned.</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text"><strong>"I know what my business is worth."</strong> — Owners consistently over or underestimate by 40%.</div></div>
+          <div class="check"><div class="check-dot"></div><div class="check-text"><strong>"I don't have the budget."</strong> — The assessment cost is a fraction of a 10% value improvement.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: SUPPORT SYSTEM -->
+  <div class="slide dark">
+    <div class="full center" style="padding:60px;">
+      <div class="eyebrow">You're Not Alone</div>
+      <div class="h3" style="margin-bottom:8px;">Your Support System</div>
+      <div class="amber-line" style="margin:12px auto 24px;"></div>
+      <div class="three-col" style="max-width:800px;">
+        <div class="icon-card"><div class="icon">👤</div><div class="icon-title">Your Director</div><div class="icon-sub">Bi-weekly check-ins, deal coaching, and accountability.</div></div>
+        <div class="icon-card"><div class="icon">🏢</div><div class="icon-title">Exit Factor Corporate</div><div class="icon-sub">Training, methodology, marketing materials, and ongoing education.</div></div>
+        <div class="icon-card"><div class="icon">🤝</div><div class="icon-title">Your Peer Network</div><div class="icon-sub">Fellow Exit Factor consultants. Share what's working.</div></div>
+        <div class="icon-card"><div class="icon">📋</div><div class="icon-title">CRM & Tools</div><div class="icon-sub">Your pipeline management system. Use it daily.</div></div>
+        <div class="icon-card"><div class="icon">📊</div><div class="icon-title">Weekly KPI Tracker</div><div class="icon-sub">Self-report your numbers every Friday.</div></div>
+        <div class="icon-card"><div class="icon">📚</div><div class="icon-title">Resource Library</div><div class="icon-sub">One-pagers, decks, email templates, and objection scripts.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: MINDSET -->
+  <div class="slide amber-bg">
+    <div class="full center" style="padding:70px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#78350f;margin-bottom:16px;">Mindset</div>
+      <div class="h2" style="color:#0a0a0a;margin-bottom:16px;max-width:680px;">"Activity is the only thing<br>you fully control."</div>
+      <div style="width:56px;height:4px;background:#0a0a0a;border-radius:2px;margin:0 auto 28px;"></div>
+      <div style="max-width:620px;font-size:15px;color:#78350f;line-height:1.7;text-align:center;margin-bottom:32px;">Revenue is an outcome. Referral relationships, discovery meetings, proposals, and follow-ups are the inputs. Control the inputs relentlessly — and the outcomes will follow.</div>
+      <div style="display:flex;gap:24px;justify-content:center;">
+        <div style="background:#0a0a0a;border-radius:10px;padding:16px 24px;text-align:center;"><div style="font-size:28px;font-weight:900;color:#f59e0b;">Show Up</div><div style="font-size:11px;color:#9ca3af;margin-top:4px;">Every week, no exceptions</div></div>
+        <div style="background:#0a0a0a;border-radius:10px;padding:16px 24px;text-align:center;"><div style="font-size:28px;font-weight:900;color:#f59e0b;">Follow Up</div><div style="font-size:11px;color:#9ca3af;margin-top:4px;">Fortune is in the follow-through</div></div>
+        <div style="background:#0a0a0a;border-radius:10px;padding:16px 24px;text-align:center;"><div style="font-size:28px;font-weight:900;color:#f59e0b;">Trust It</div><div style="font-size:11px;color:#9ca3af;margin-top:4px;">The process works if you do</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: LET'S GO -->
+  <div class="slide dark">
+    <div class="full" style="display:flex;">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:70px 80px;">
+        <div class="eyebrow">You're Ready</div>
+        <div class="h2" style="margin-bottom:16px;">Now Go<br>Build Something<br><span style="color:#f59e0b;">Worth Having.</span></div>
+        <div class="amber-line"></div>
+        <div class="sub" style="margin-bottom:32px;">Follow the plan. Hit the KPIs. Serve your clients exceptionally well. The practice you're capable of building will change lives — including yours.</div>
+        <div class="two-col" style="max-width:460px;">
+          <div style="background:#1e293b;border-radius:8px;padding:12px 16px;"><div style="font-size:10px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:1.5px;">Your First Action</div><div style="font-size:13px;color:white;margin-top:4px;font-weight:600;">Complete Week 1 of the ramp-up plan today.</div></div>
+          <div style="background:#1e293b;border-radius:8px;padding:12px 16px;"><div style="font-size:10px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:1.5px;">Your 90-Day Goal</div><div style="font-size:13px;color:white;margin-top:4px;font-weight:600;">Write down the number of assessments you will sell. Commit to it.</div></div>
+        </div>
+      </div>
+      <div style="width:260px;background:#f59e0b;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:40px 30px;">
+        <div style="font-size:80px;margin-bottom:12px;">🏆</div>
+        <div style="font-size:12px;font-weight:800;color:#0a0a0a;text-align:center;text-transform:uppercase;letter-spacing:2px;line-height:1.5;">Exit Factor Charlotte<br>Consultant Onboarding</div>
+      </div>
+    </div>
+    <div class="bottom-bar"></div>
+  </div>
+
+</div>
+
+<div class="thumbnails" id="thumbs"></div>
+
+<script>
+  let cur=0;
+  const slides=document.querySelectorAll('.slide');
+  const total=slides.length;
+  const titles=["Cover","The Opportunity","Who We Serve","5-Phase Method","4-Week Ramp Up","List of 100","Referral Partners","Month 1 Plan","Months 2 & 3","KPI Dashboard","Sales Process","Support System","Mindset","Let's Go"];
+  const colors=["#0a0a0a","#0f172a","#fff","#0f172a","#fff","#0a0a0a","#f8f8f8","#0f172a","#f8f8f8","#0a0a0a","#f8f8f8","#0a0a0a","#f59e0b","#0a0a0a"];
+  const thumbs=document.getElementById("thumbs");
+  titles.forEach((t,i)=>{
+    const d=document.createElement("div");
+    d.className="thumb"+(i===0?" active-thumb":"");
+    d.style.background=colors[i];
+    d.style.color=(colors[i]==="#fff"||colors[i]==="#f8f8f8"||colors[i]==="#f59e0b")?"#0a0a0a":"white";
+    d.textContent=i+1; d.title=t; d.onclick=()=>goTo(i);
+    thumbs.appendChild(d);
+  });
+  function goTo(n){
+    slides[cur].classList.remove("active");
+    document.querySelectorAll(".thumb")[cur].classList.remove("active-thumb");
+    cur=n;
+    slides[cur].classList.add("active");
+    document.querySelectorAll(".thumb")[cur].classList.add("active-thumb");
+    document.getElementById("counter").textContent=(cur+1)+" / "+total;
+    document.getElementById("prevBtn").disabled=cur===0;
+    document.getElementById("nextBtn").disabled=cur===total-1;
+  }
+  function changeSlide(dir){if(cur+dir>=0&&cur+dir<total)goTo(cur+dir);}
+  document.addEventListener("keydown",e=>{
+    if(e.key==="ArrowRight"||e.key==="ArrowDown")changeSlide(1);
+    if(e.key==="ArrowLeft"||e.key==="ArrowUp")changeSlide(-1);
+  });
+  function toggleFullscreen(){const el=document.getElementById("deck");if(!document.fullscreenElement)el.requestFullscreen?.();else document.exitFullscreen?.();}
+</script>
+</body>
+</html>

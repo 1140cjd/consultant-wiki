@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exit Factor Charlotte — Consultant Welcome Packet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f4f4f4; color: #1a1a1a; }
+  .page { width: 816px; min-height: 1056px; background: white; margin: 24px auto; padding: 64px 72px; position: relative; page-break-after: always; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+  .cover { background: #0a0a0a; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 80px 80px; min-height: 1056px; }
+  .cover-eyebrow { color: #f59e0b; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
+  .cover-title { color: white; font-size: 52px; font-weight: 900; line-height: 1.05; margin-bottom: 24px; }
+  .cover-title span { color: #f59e0b; }
+  .cover-sub { color: #9ca3af; font-size: 18px; font-weight: 400; line-height: 1.6; max-width: 480px; margin-bottom: 56px; }
+  .cover-divider { width: 60px; height: 4px; background: #f59e0b; margin-bottom: 40px; }
+  .cover-meta { color: #6b7280; font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+  .cover-accent { position: absolute; right: 0; top: 0; width: 320px; height: 100%; background: linear-gradient(180deg, #f59e0b08 0%, #f59e0b03 100%); border-left: 1px solid #f59e0b15; }
+  .cover-numbers { display: flex; gap: 40px; margin-top: 48px; padding-top: 48px; border-top: 1px solid #2a2a2a; }
+  .cover-stat { text-align: left; }
+  .cover-stat-num { color: #f59e0b; font-size: 32px; font-weight: 900; }
+  .cover-stat-label { color: #6b7280; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .page-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; margin-bottom: 32px; border-bottom: 2px solid #f59e0b; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #f59e0b; margin-bottom: 4px; }
+  .page-title { font-size: 26px; font-weight: 800; color: #0a0a0a; line-height: 1.2; }
+  .logo-mark { background: #0a0a0a; color: white; font-size: 10px; font-weight: 800; letter-spacing: 2px; padding: 6px 12px; border-radius: 4px; }
+  .letter-body { font-size: 17px; line-height: 1.8; color: #374151; }
+  .letter-body p { margin-bottom: 16px; }
+  .letter-highlight { background: #fefce8; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 24px 0; font-size: 16px; font-style: italic; color: #374151; line-height: 1.7; }
+  .signature-block { margin-top: 32px; }
+  .sig-name { font-size: 16px; font-weight: 700; color: #0a0a0a; }
+  .sig-title { font-size: 13px; color: #6b7280; margin-top: 2px; }
+  .toc-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
+  .toc-num { width: 32px; height: 32px; background: #0a0a0a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-right: 16px; }
+  .toc-label { font-size: 15px; font-weight: 600; color: #1a1a1a; flex: 1; }
+  .toc-page { font-size: 12px; color: #9ca3af; font-weight: 500; }
+  .week-block { margin-bottom: 24px; border-radius: 10px; overflow: hidden; border: 1px solid #e5e7eb; }
+  .week-header { background: #0a0a0a; color: white; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .week-header-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f59e0b; }
+  .week-header-title { font-size: 15px; font-weight: 700; margin-top: 2px; }
+  .week-items { background: #fafafa; }
+  .week-item { display: flex; align-items: flex-start; padding: 10px 20px; border-bottom: 1px solid #e5e7eb; gap: 12px; }
+  .week-item:last-child { border-bottom: none; }
+  .bullet { width: 7px; height: 7px; background: #f59e0b; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .item-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+  .item-desc { font-size: 12px; color: #6b7280; margin-top: 2px; line-height: 1.5; }
+  .checklist-section { margin-bottom: 24px; }
+  .checklist-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .checklist-icon { width: 32px; height: 32px; background: #f59e0b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .checklist-title { font-size: 14px; font-weight: 700; color: #0a0a0a; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f3f4f6; }
+  .check-box { width: 16px; height: 16px; border: 2px solid #d1d5db; border-radius: 3px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+  .check-box.checked { background: #111827; border-color: #111827; color: white; font-size: 10px; }
+  .check-text { font-size: 12.5px; color: #374151; line-height: 1.5; }
+  .check-text.done { text-decoration: line-through; color: #9ca3af; }
+  .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .day-card { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+  .day-card-header { background: #0a0a0a; color: white; padding: 8px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+  .day-card-header.amber { background: #f59e0b; color: #0a0a0a; }
+  .day-card-header.gray { background: #374151; }
+  .day-card-body { padding: 10px 14px; background: #fafafa; }
+  .day-task { display: flex; gap: 8px; padding: 4px 0; font-size: 11.5px; color: #374151; line-height: 1.5; border-bottom: 1px solid #f3f4f6; }
+  .day-task:last-child { border-bottom: none; }
+  .day-dot { width: 5px; height: 5px; background: #f59e0b; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .kpi-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .kpi-table th { background: #0a0a0a; color: white; padding: 11px 14px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+  .kpi-table td { padding: 11px 14px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  .kpi-table tr:nth-child(even) td { background: #f9fafb; }
+  .kpi-table tr:last-child td { border-bottom: none; }
+  .target-badge { display: inline-block; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .cat-row td { background: #f3f4f6 !important; font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1.5px; padding: 7px 14px; }
+  .scorecard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+  .scorecard-card { background: #0a0a0a; border-radius: 8px; padding: 14px; text-align: center; }
+  .scorecard-label { color: #9ca3af; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .scorecard-target { color: #f59e0b; font-size: 16px; font-weight: 800; margin-top: 6px; }
+  .page-footer { position: absolute; bottom: 32px; left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e5e7eb; padding-top: 12px; font-size: 10px; color: #9ca3af; }
+  .footer-brand { font-weight: 700; color: #374151; }
+  .month-col-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+  .month-col { background: white; }
+  .month-col-header { background: #0a0a0a; color: white; padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+  .month-col-header.amber { background: #f59e0b; color: #0a0a0a; }
+  .month-col-item { display: flex; gap: 8px; padding: 8px 14px; border-bottom: 1px solid #f3f4f6; font-size: 11.5px; color: #374151; line-height: 1.4; }
+  .month-col-item:last-child { border-bottom: none; }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; } }
+  @page { size: letter; margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="page cover">
+  <div class="cover-accent"></div>
+  <div class="cover-eyebrow">Exit Factor Charlotte</div>
+  <div class="cover-title">Welcome to<br>Your <span>New</span><br>Business.</div>
+  <div class="cover-divider"></div>
+  <div class="cover-sub">Everything you need to know, do, and track to build a thriving exit planning practice — starting today.</div>
+  <div class="cover-meta">Consultant Onboarding & Success System</div>
+  <div class="cover-numbers">
+    <div class="cover-stat"><div class="cover-stat-num">4</div><div class="cover-stat-label">Week Ramp-Up</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">90</div><div class="cover-stat-label">Day Roadmap</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">20+</div><div class="cover-stat-label">KPIs Tracked</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">$10T</div><div class="cover-stat-label">Transfer Wave</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <div><div class="section-label">Welcome</div><div class="page-title">A Message from Chris</div></div>
+    <div class="logo-mark">EXIT FACTOR</div>
+  </div>
+  <div class="letter-body">
+    <p>Welcome to Exit Factor Charlotte.</p>
+    <p>You've made a significant decision — one that puts you at the center of one of the most important conversations a business owner will ever have. The question of how and when to exit a business isn't just a financial transaction. It's the culmination of decades of sacrifice, risk, and perseverance. And you're going to help them do it right.</p>
+    <div class="letter-highlight">"Over the next decade, an estimated $10 trillion in business wealth will change hands as Baby Boomer owners retire. Most of them are unprepared. That's the problem we solve — and the opportunity in front of you."</div>
+    <p>This packet is your operating system for the first 90 days. It contains your pre-training ramp-up curriculum, your task checklist before training, a day-by-day plan for your first 30 days after training, and the KPIs you'll use to measure whether you're on the right track.</p>
+    <p>There is no shortcut to building a great practice. But there is a proven path — and this document is it. Follow it with discipline, show up with energy, and trust the process.</p>
+    <p>I'm in your corner. Let's build something great together.</p>
+    <div class="signature-block"><div class="sig-name">Chris</div><div class="sig-title">Founder & Owner, Exit Factor Charlotte</div></div>
+  </div>
+  <div class="page-footer"><span class="footer-brand">Exit Factor Charlotte</span><span>Consultant Onboarding & Success System — Confidential</span><span>2</span></div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <div><div class="section-label">Navigation</div><div class="page-title">What's Inside</div></div>
+    <div class="logo-mark">EXIT FACTOR</div>
+  </div>
+  <div class="toc-item"><div class="toc-num">01</div><div class="toc-label">4-Week Pre-Training Ramp Up Plan</div><div class="toc-page">Pg. 4–5</div></div>
+  <div class="toc-item"><div class="toc-num">02</div><div class="toc-label">Pre-Training Task Checklist</div><div class="toc-page">Pg. 6</div></div>
+  <div class="toc-item"><div class="toc-num">03</div><div class="toc-label">Post-Training 30-Day Daily Plan</div><div class="toc-page">Pg. 7–8</div></div>
+  <div class="toc-item"><div class="toc-num">04</div><div class="toc-label">Months 2 & 3 Weekly Roadmap</div><div class="toc-page">Pg. 9</div></div>
+  <div class="toc-item"><div class="toc-num">05</div><div class="toc-label">KPIs & Leading Indicators</div><div class="toc-page">Pg. 10</div></div>
+  <div class="toc-item"><div class="toc-num">06</div><div class="toc-label">Weekly Scorecard</div><div class="toc-page">Pg. 11</div></div>
+  <div style="margin-top:40px; background:#f9fafb; border-radius:10px; padding:24px; border:1px solid #e5e7eb;">
+    <div style="font-size:12px; font-weight:700; color:#0a0a0a; margin-bottom:12px; text-transform:uppercase; letter-spacing:1.5px;">How to Use This Packet</div>
+    <div style="font-size:13px; color:#374151; line-height:1.8;">
+      <p style="margin-bottom:8px;"><strong>Before Training:</strong> Work through the 4-Week Ramp Up and complete every item on the Pre-Training Checklist. Arrive prepared — not just present.</p>
+      <p style="margin-bottom:8px;"><strong>During Training:</strong> Bring your List of 100, your draft elevator pitch, and 3 specific questions based on what you've learned.</p>
+      <p><strong>After Training:</strong> Follow the 30-Day daily plan to the letter. Then shift to the Month 2–3 weekly rhythm. Track your KPIs every week without exception.</p>
+    </div>
+  </div>
+  <div class="page-footer"><span class="footer-brand">Exit Factor Charlotte</span><span>Consultant Onboarding & Success System — Confidential</span><span>3</span></div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <div><div class="section-label">Section 01</div><div class="page-title">4-Week Pre-Training Ramp Up</div></div>
+    <div class="logo-mark">EXIT FACTOR</div>
+  </div>
+  <div class="week-block">
+    <div class="week-header"><div><div class="week-header-label">Week 1</div><div class="week-header-title">Foundation: Know Your Company</div></div></div>
+    <div class="week-items">
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Exit Factor Overview</div><div class="item-desc">Read all brand materials and the company's mission, vision, and values.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">The 5-Phase Methodology</div><div class="item-desc">Study each phase in depth. Practice a verbal walkthrough until you can deliver it naturally to a business owner.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Ideal Client Profile</div><div class="item-desc">Owners with $1M–$20M revenue, 2–15 years from exit, often unaware of their value gap. Know their pain points cold.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Service Menu Mastery</div><div class="item-desc">Learn every service offering — the exit assessment, value acceleration program, exit readiness score, and engagement structures.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Competitor Landscape</div><div class="item-desc">Research the Charlotte market. Understand how Exit Factor differentiates from M&A advisors, brokers, and generalist consultants.</div></div></div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header"><div><div class="week-header-label">Week 2</div><div class="week-header-title">Foundation: Know Your Market</div></div></div>
+    <div class="week-items">
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Exit Planning Industry 101</div><div class="item-desc">Read IBBA and BEI primers on exit planning. Understand the $10T wealth transfer wave driving this market.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">The Value Gap</div><div class="item-desc">Study the difference between what a business is worth today vs. what the owner needs for financial independence.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Charlotte Market Research</div><div class="item-desc">Research businesses in Mecklenburg, Gaston, Union, and York counties with 10–200 employees. Know your primary prospect industries.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Referral Partner Landscape</div><div class="item-desc">Map the ecosystem: CPAs, financial advisors, wealth managers, estate attorneys, commercial bankers, and business brokers.</div></div></div>
+    </div>
+  </div>
+  <div class="page-footer"><span class="footer-brand">Exit Factor Charlotte</span><span>Consultant Onboarding & Success System — Confidential</span><span>4</span></div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <div><div class="section-label">Section 01 (continued)</div><div class="page-title">4-Week Pre-Training Ramp Up</div></div>
+    <div class="logo-mark">EXIT FACTOR</div>
+  </div>
+  <div class="week-block">
+    <div class="week-header"><div><div class="week-header-label">Week 3</div><div class="week-header-title">Messaging & Tools</div></div></div>
+    <div class="week-items">
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Your Elevator Pitch</div><div class="item-desc">Draft and practice your 30-second and 2-minute pitches. Record yourself. Refine until it's natural and confident.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">LinkedIn Profile Optimization</div><div class="item-desc">Update your headline, about section, and experience. Add the Exit Factor affiliation. Begin connecting with 10 targeted people per day.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">CRM Setup</div><div class="item-desc">Get set up in the CRM. Begin entering your List of 100 contacts and tagging by type: referral partner, prospect, or community connector.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Digital Asset Review</div><div class="item-desc">Review all Exit Factor marketing collateral, one-pagers, email templates, and presentation decks. Know what's available and when to use each.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Shadow a Discovery Call</div><div class="item-desc">Sit in (live or recorded) on at least one Discovery Call or prospect presentation. Take notes on objections, questions, and flow.</div></div></div>
+    </div>
+  </div>
+  <div class="week-block">
+    <div class="week-header"><div><div class="week-header-label">Week 4</div><div class="week-header-title">Network Activation</div></div></div>
+    <div class="week-items">
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">List of 100 Completion</div><div class="item-desc">Finalize your full list. Prioritize the top 20 as Tier 1 outreach. Begin scheduling meetings before training.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Referral Group Identification</div><div class="item-desc">Identify 3–5 BNI chapters or referral groups in your geography. Attend at least one as a visitor this week.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Chamber Registration</div><div class="item-desc">Join the Charlotte Chamber or local equivalent. Register for at least 2 events before your training date.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Initial Outreach Blitz</div><div class="item-desc">Send personalized messages to your top 20 Tier 1 contacts. Plant the seed and schedule a 1:1 before training.</div></div></div>
+      <div class="week-item"><div class="bullet"></div><div><div class="item-title">Training Prep Review</div><div class="item-desc">Review all pre-work assigned by corporate. Arrive prepared with questions ready, not just present.</div></div></div>
+    </div>
+  </div>
+  <div class="page-footer"><span class="footer-brand">Exit Factor Charlotte</span><span>Consultant Onboarding & Success System — Confidential</span><span>5</span></div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <div><div class="section-label">Section 02</div><div class="page-title">Pre-Training Task Checklist</div></div>
+    <div class="logo-mark">EXIT FACTOR</div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+    <div>
+      <div class="checklist-section">
+        <div class="checklist-header"><div class="checklist-icon">🏛️</div><div class="checklist-title">Business Foundation</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Complete full Exit Factor curriculum pre-read</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Write 3-bullet summaries for each of the 5 methodology phases</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Write your personal "Why Story"</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Set up business email, CRM access, and LinkedIn business profile</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Create a 1-page "About Me" to share with referral partners</div></div>
+      </div>
+      <div class="checklist-section" style="margin-top:16px;">
+        <div class="checklist-header"><div class="checklist-icon">🔍</div><div class="checklist-title">Market Research</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Read 2 books or reports on exit planning</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Write a 1-page summary of the Charlotte M&A and brokerage market</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Identify top 10 CPA firms and 10 wealth management firms in your area</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Research 3 BNI chapters and 2 other referral networking groups</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Identify 5 upcoming chamber or regional events in the next 60 days</div></div>
+      </div>
+      <div class="checklist-section" style="margin-top:16px;">
+        <div class="checklist-header"><div class="checklist-icon">🧠</div><div class="checklist-title">Mindset & Preparation</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Set your 90-day goal: # of assessments to sell. Write it down.</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Block your post-training calendar with daily activity time</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Identify your accountability partner</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Write out top 5 objections + 2-sentence response to each</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Prepare 3 questions to ask at training based on your research</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="checklist-section">
+        <div class="checklist-header"><div class="checklist-icon">📋</div><div class="checklist-title">List of 100</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Build full List of 100 using the provided template</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Tier-sort: Tier 1 (20), Tier 2 (40), Tier 3 (40)</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Write personalized outreach message for each Tier 1 contact</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Schedule at least 5 coffee/Zoom 1:1s before your training date</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Log all 100 contacts into CRM with proper tags</div></div>
+      </div>
+      <div class="checklist-section" style="margin-top:16px;">
+        <div class="checklist-header"><div class="checklist-icon">🤝</div><div class="checklist-title">Community Presence</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Attend 2 chamber or networking events before training</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Attend 1 referral group as a visitor; deliver a clear 60-second intro</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Ask at least 3 people if they know a business owner thinking of exit</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Collect 10+ business cards; follow up each with a LinkedIn connect</div></div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">Document event notes: who you met, what they do, follow-up potential</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span class="footer-brand">Exit Factor Charlotte</span><span>Consultant Onboarding & Success System — Confidential</span><span>6</span></div>
+</div>
+
+<script>
+function toggleCheck(box) {
+  box.classList.toggle('checked');
+  box.textContent = box.classList.contains('checked') ? '✓' : '';
+  const text = box.nextElementSibling;
+  text.classList.toggle('done');
+}
+</script>
+</body>
+</html>

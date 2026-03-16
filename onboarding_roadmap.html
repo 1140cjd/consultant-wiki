@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exit Factor Charlotte — Post-Training Roadmap & KPIs</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#f9fafb;color:#1a1a1a;}
+  .header{background:#111827;color:white;padding:20px 24px;}
+  .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+  .header h1{font-size:18px;font-weight:700;}
+  .header p{font-size:13px;color:#9ca3af;margin-top:2px;}
+  .tab-bar{background:white;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:10;}
+  .tab-bar-inner{max-width:900px;margin:0 auto;display:flex;overflow-x:auto;}
+  .tab-btn{padding:12px 18px;font-size:13px;font-weight:500;color:#6b7280;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;transition:all .15s;}
+  .tab-btn:hover{color:#111827;}
+  .tab-btn.active{color:#111827;border-bottom-color:#111827;font-weight:600;}
+  .content{max-width:900px;margin:0 auto;padding:24px 16px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .section-head{margin-bottom:20px;}
+  .section-head h2{font-size:20px;font-weight:700;color:#111827;}
+  .section-head p{font-size:14px;color:#6b7280;margin-top:4px;}
+  .block{border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;margin-bottom:16px;}
+  .block-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+  .block-header-left .title{font-size:15px;font-weight:700;}
+  .block-toggle{font-size:11px;color:rgba(255,255,255,.7);margin-left:12px;}
+  .day-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .day-card{background:white;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;}
+  .day-card-header{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:white;}
+  .day-card-body{padding:10px 14px;}
+  .day-task{display:flex;gap:8px;padding:4px 0;font-size:12px;color:#374151;line-height:1.5;border-bottom:1px solid #f3f4f6;}
+  .day-task:last-child{border-bottom:none;}
+  .day-dot{width:5px;height:5px;background:#f59e0b;border-radius:50%;flex-shrink:0;margin-top:6px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:12px;}
+  .col-section{background:white;}
+  .col-head{padding:9px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:white;background:#111827;}
+  .col-item{display:flex;gap:8px;padding:8px 14px;border-bottom:1px solid #f3f4f6;font-size:12px;color:#374151;line-height:1.4;}
+  .col-item:last-child{border-bottom:none;}
+  .kpi-table{width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;}
+  .kpi-table th{background:#111827;color:white;padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+  .kpi-table td{padding:10px 16px;border-bottom:1px solid #e5e7eb;vertical-align:top;}
+  .kpi-table tr:nth-child(even) td{background:#f9fafb;}
+  .kpi-table tr:last-child td{border-bottom:none;}
+  .cat-row td{background:#f3f4f6 !important;font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:1.5px;padding:7px 16px;}
+  .target-badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+  .scorecard{background:#111827;border-radius:12px;padding:20px;margin-top:20px;}
+  .scorecard h3{color:white;font-size:14px;font-weight:700;margin-bottom:14px;}
+  .scorecard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .sc-card{background:#1f2937;border-radius:8px;padding:12px;text-align:center;}
+  .sc-label{color:#9ca3af;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+  .sc-target{color:#f59e0b;font-size:15px;font-weight:800;margin-top:5px;}
+  .w-blue .block-header{background:#1d4ed8;color:white;} .w-blue .day-card-header{background:#1d4ed8;}
+  .w-purple .block-header{background:#6d28d9;color:white;} .w-purple .day-card-header{background:#6d28d9;}
+  .w-green .block-header{background:#047857;color:white;} .w-green .day-card-header{background:#047857;}
+  .w-orange .block-header{background:#b45309;color:white;} .w-orange .day-card-header{background:#b45309;}
+  @media(max-width:640px){.day-grid{grid-template-columns:1fr;}.three-col{grid-template-columns:1fr;}.scorecard-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <span style="font-size:24px;">🗺️</span>
+    <div>
+      <h1>Exit Factor Charlotte</h1>
+      <p>Post-Training Roadmap & KPIs — First 90 Days</p>
+    </div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('roadmap',this)">Post-Training Roadmap</button>
+    <button class="tab-btn" onclick="showTab('kpis',this)">KPIs & Leading Indicators</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TAB 1: ROADMAP -->
+  <div id="tab-roadmap" class="tab-panel active">
+    <div class="section-head">
+      <h2>Post-Training 90-Day Roadmap</h2>
+      <p>Month 1 is day-by-day. Months 2 & 3 shift to weekly execution across Marketing, Selling, and Delivering. Click any block to expand.</p>
+    </div>
+    <div id="roadmap-blocks"></div>
+  </div>
+
+  <!-- TAB 2: KPIs -->
+  <div id="tab-kpis" class="tab-panel">
+    <div class="section-head">
+      <h2>KPIs & Leading Indicators</h2>
+      <p>These are the numbers that predict success. Hit these activity targets consistently and revenue results follow.</p>
+    </div>
+    <div id="kpi-blocks"></div>
+  </div>
+
+</div>
+
+<script>
+const month1Weeks = [
+  { color:"w-blue", label:"Week 1 — Relaunch & Announce", days:[
+    { day:"Monday — Day 1", tasks:["Send 'I'm back and ready' announcement to your full List of 100 via email or LinkedIn DM","Update LinkedIn with a post about completing Exit Factor training","Review your CRM — prioritize your Tier 1 outreach list","Block your calendar for the full week with structured activity blocks"] },
+    { day:"Tuesday — Day 2", tasks:["Call your top 5 Tier 1 contacts — schedule 1:1 meetings within the next 2 weeks","Attend a referral group meeting if weekly meeting falls today","Log all outreach activity in CRM"] },
+    { day:"Wednesday — Day 3", tasks:["Send personalized LinkedIn messages to 10 new connections","Draft your 'intro to referral partners' email and send to your top CPA and financial advisor targets","Review Exit Factor training notes — create a personal quick-reference cheat sheet"] },
+    { day:"Thursday — Day 4", tasks:["Attend a chamber or networking event (or schedule one for this week)","Follow up with anyone who responded to Day 1 outreach","Set up your first 1:1 with a high-value referral partner candidate"] },
+    { day:"Friday — Day 5 (Weekly Review)", tasks:["Log all week's activity in CRM","Send 5 handwritten or highly personalized follow-up notes to key contacts","Prep schedule and priorities for Week 2"] },
+  ]},
+  { color:"w-purple", label:"Week 2 — Referral Partner Blitz", days:[
+    { day:"Monday", tasks:["Hold 1–2 scheduled 1:1 meetings with referral partner candidates (CPA, financial advisor, or attorney)","Ask each: 'Do you have any clients who've talked about eventually selling their business?'"] },
+    { day:"Tuesday", tasks:["Attend referral group meeting — deliver sharp 60-second intro, collect 2 new cards","Log all contacts and notes in CRM immediately after"] },
+    { day:"Wednesday", tasks:["Follow up with everyone met in Week 1 who hasn't responded","Send Exit Factor one-pager to any referral partner 1:1 who expressed interest","LinkedIn outreach: 10 new targeted connections (CPAs, advisors, attorneys in Charlotte area)"] },
+    { day:"Thursday", tasks:["Hold 1–2 more referral partner 1:1 meetings","Attend a chamber event or schedule visit to a second referral group this week"] },
+    { day:"Friday (Weekly Review)", tasks:["Update CRM and log all week's activity","Set 3 specific outreach goals for Week 3","Reach out to 3 Tier 2 contacts to schedule future 1:1s"] },
+  ]},
+  { color:"w-green", label:"Week 3 — Open the Prospect Pipeline", days:[
+    { day:"Monday", tasks:["Hold any scheduled referral partner 1:1s","Follow up with referral partners from Weeks 1–2 — ask specifically for 1 introduction to a business owner"] },
+    { day:"Tuesday", tasks:["Attend referral group — goal: walk out with at least 1 business owner name","Log prospect leads immediately"] },
+    { day:"Wednesday", tasks:["Conduct your first prospect Discovery Call (even informal — a coffee with a business owner counts)","Debrief in your journal: what worked, what was awkward, what to adjust"] },
+    { day:"Thursday", tasks:["LinkedIn content: post something educational about exit planning or business value","Reach out to 5 more Tier 2 contacts to warm the relationship"] },
+    { day:"Friday (Weekly Review)", tasks:["Are you on pace for your 90-day assessment goal?","Identify stalled relationships and create a re-engagement plan","Prep Week 4 with at least 2 Discovery Calls already scheduled"] },
+  ]},
+  { color:"w-orange", label:"Week 4 — First Assessment Close Attempt", days:[
+    { day:"Monday", tasks:["Hold scheduled Discovery Calls — deliver the exit readiness conversation flawlessly","Send follow-up summary and next steps within 2 hours of each call"] },
+    { day:"Tuesday", tasks:["Attend referral group — deliver a specific story or stat about a business owner who benefited from exit planning","Schedule at least 2 new referral partner 1:1s for the coming weeks"] },
+    { day:"Wednesday", tasks:["Conduct 2nd call / proposal presentation for any Discovery Call prospects who expressed interest","Present the Exit Assessment offer — ask for the sale"] },
+    { day:"Thursday", tasks:["Follow up on any open proposals within 24–48 hours","Move top referral partners toward a formal referral agreement"] },
+    { day:"Friday — Month 1 Close-Out Review", tasks:["Tally calls made, meetings held, events attended, referral partners engaged","Count assessments proposed and assessments sold","Set Month 2 targets","Celebrate any wins — momentum is everything in Month 1"] },
+  ]},
+];
+
+const months23 = [
+  { month:"Month 2", focus:"Build Pipeline Depth & Referral Engine", periods:[
+    { period:"Weeks 5–6", marketing:["Post 2x per week on LinkedIn (tips, stats, client stories — no names)","Attend 2 referral group meetings per week","Attend 1 chamber event","Send monthly 'value email' to your full contact list"], selling:["Hold 4–6 Discovery Calls","Hold 2–4 second calls / proposal presentations","Present at least 2 Exit Assessment proposals","Execute formal referral agreement with at least 1 partner"], delivering:["If assessment sold: begin delivery within 7 days","Create a post-assessment debrief template","Document your delivery process to improve each time"] },
+    { period:"Weeks 7–8", marketing:["Guest speak or present at a chamber event or association if possible","Ask 2 referral partners to co-introduce you to their clients","Post client-centric content: 'Is your business exit-ready?' style posts"], selling:["Add 10 new Tier 1/2 contacts to CRM from referrals and events","Follow up on all open proposals","Close at least 1 additional assessment","Begin converting assessment clients to full exit planning engagements"], delivering:["Deliver assessment reports on time with exceptional quality","Use assessment debrief meeting to present exit planning engagement offer"] },
+  ]},
+  { month:"Month 3", focus:"Revenue Acceleration & Systematization", periods:[
+    { period:"Weeks 9–10", marketing:["Build a simple referral partner 'newsletter' or monthly touchpoint","Identify 1 speaking opportunity (rotary, association, chamber luncheon) and book it","Continue 2x weekly LinkedIn posting — engage with comments actively"], selling:["Target 6–8 Discovery Calls this period","Push for 2 assessment closes per bi-weekly period","Begin pitching exit planning engagements to assessment clients","Formalize referral agreements with 2–3 additional partners"], delivering:["Deliver all assessments within SLA","Request testimonials from satisfied clients","Identify upsell and cross-sell timing within the engagement"] },
+    { period:"Weeks 11–12 (90-Day Retrospective)", marketing:["Identify which marketing activity drove the most leads","Double down on top 1–2 channels","Request 1–2 LinkedIn recommendations from referral partners"], selling:["Assessments sold vs. goal — what worked and what didn't?","Identify top 3 referral sources — invest more time in those relationships","Set Month 4 pipeline target based on data, not hope"], delivering:["Review delivery quality with Chris — identify any gaps or client feedback","Document wins and process improvements for future training use"] },
+  ]},
+];
+
+const kpiData = [
+  { cat:"📣 Marketing & Visibility", metrics:[
+    {name:"Referral Group Meetings Attended", target:"2 per week", why:"Consistent presence builds trust and top-of-mind awareness with your referral network"},
+    {name:"Chamber / Association Events Attended", target:"2 per month", why:"Expands your community footprint and positions you as an engaged local business leader"},
+    {name:"LinkedIn Posts Published", target:"2 per week", why:"Establishes you as the go-to exit planning expert in the Charlotte market"},
+    {name:"New LinkedIn Connections (targeted)", target:"10 per week", why:"Grows your digital referral network with CPAs, advisors, attorneys, and business owners"},
+  ]},
+  { cat:"🤝 Relationship Building", metrics:[
+    {name:"1:1 Meetings with Potential Referral Partners", target:"3–4 per week", why:"Referral partners are your primary lead source — relationships must be built one meeting at a time"},
+    {name:"New Referral Agreements Executed", target:"2 per month", why:"Formalizing relationships moves partners from 'maybe' to committed"},
+    {name:"Referral Partner Follow-Up Touches", target:"Every 2 weeks per partner", why:"Staying top of mind with partners is the #1 driver of inbound referrals"},
+    {name:"New Contacts Added to CRM", target:"10 per week", why:"A growing, well-managed pipeline ensures you never run dry on opportunities"},
+  ]},
+  { cat:"💼 Sales Pipeline", metrics:[
+    {name:"Prospect Discovery Meetings Held", target:"4–6 per month", why:"Discovery meetings are the entry point of your sales process — volume here drives everything downstream"},
+    {name:"Prospect 2nd Call / Proposal Conversations", target:"2–4 per month", why:"Moving prospects to a second conversation is the strongest signal of real buying intent"},
+    {name:"Exit Assessments Proposed", target:"3–4 per month", why:"You must ask for the business consistently — proposals are a leading indicator of closes"},
+    {name:"Exit Assessments Sold", target:"1–2 per month", why:"The assessment is your primary revenue entry point and the gateway to larger engagements"},
+  ]},
+  { cat:"💰 Revenue & Engagement", metrics:[
+    {name:"Exit Planning Engagements Sold", target:"1 / quarter → 2 / month", why:"Full engagements are your highest-value revenue stream — assessments should convert at 30–50%"},
+    {name:"Assessment-to-Engagement Conversion Rate", target:"30%+ within 90 days", why:"If conversion is below 30%, the issue is delivery quality or follow-up cadence — both fixable"},
+  ]},
+  { cat:"📊 Activity & Accountability", metrics:[
+    {name:"Outbound Calls / Messages Sent", target:"15–20 per week", why:"Activity is the foundation — every great relationship started with an outreach"},
+    {name:"CRM Updated", target:"Daily", why:"A consultant who doesn't update their CRM is flying blind — discipline here pays dividends"},
+    {name:"Weekly Review Completed", target:"Every Friday", why:"Reflection without data is guessing — weekly reviews catch drift before it becomes derailment"},
+    {name:"Scheduled 1:1s with Director / Accountability Partner", target:"Bi-weekly minimum", why:"External accountability dramatically increases follow-through on commitments"},
+  ]},
+];
+
+function renderRoadmap() {
+  const c = document.getElementById('roadmap-blocks');
+
+  // Month 1 header
+  const m1head = document.createElement('div');
+  m1head.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+    <span style="background:#111827;color:white;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:1px;">MONTH 1</span>
+    <span style="font-size:13px;color:#6b7280;font-weight:500;">Daily Level — Build Habits & Hit First Milestones</span>
+  </div>`;
+  c.appendChild(m1head);
+
+  month1Weeks.forEach((week, wi) => {
+    const div = document.createElement('div');
+    div.className = `block ${week.color}`;
+    div.innerHTML = `
+      <div class="block-header" onclick="toggleBlock('week-${wi}')">
+        <div class="block-header-left"><div class="title">${week.label}</div></div>
+        <span class="block-toggle" id="week-${wi}-icon">▼</span>
+      </div>
+      <div id="week-${wi}" style="display:none;padding:16px;background:#fafafa;">
+        <div class="day-grid">
+          ${week.days.map(day => `
+            <div class="day-card">
+              <div class="day-card-header ${week.color}">${day.day}</div>
+              <div class="day-card-body">
+                ${day.tasks.map(t => `<div class="day-task"><div class="day-dot"></div><span>${t}</span></div>`).join('')}
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    c.appendChild(div);
+  });
+
+  // Months 2–3
+  months23.forEach(month => {
+    const mhead = document.createElement('div');
+    mhead.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin:20px 0 12px;">
+      <span style="background:#111827;color:white;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:1px;">${month.month.toUpperCase()}</span>
+      <span style="font-size:13px;color:#6b7280;font-weight:500;">${month.focus}</span>
+    </div>`;
+    c.appendChild(mhead);
+
+    month.periods.forEach((period, pi) => {
+      const key = `m-${month.month.replace(' ','')}-${pi}`;
+      const div = document.createElement('div');
+      div.className = 'block';
+      div.style.marginBottom = '12px';
+      div.innerHTML = `
+        <div class="block-header" style="background:#374151;color:white;" onclick="toggleBlock('${key}')">
+          <div class="block-header-left"><div class="title" style="font-size:14px;">${period.period}</div></div>
+          <span class="block-toggle" id="${key}-icon">▼</span>
+        </div>
+        <div id="${key}" style="display:none;">
+          <div class="three-col">
+            <div class="col-section">
+              <div class="col-head">📣 Marketing</div>
+              ${period.marketing.map(i => `<div class="col-item"><div class="day-dot"></div><span>${i}</span></div>`).join('')}
+            </div>
+            <div class="col-section">
+              <div class="col-head">💼 Selling</div>
+              ${period.selling.map(i => `<div class="col-item"><div class="day-dot"></div><span>${i}</span></div>`).join('')}
+            </div>
+            <div class="col-section">
+              <div class="col-head">📦 Delivering</div>
+              ${period.delivering.map(i => `<div class="col-item"><div class="day-dot"></div><span>${i}</span></div>`).join('')}
+            </div>
+          </div>
+        </div>`;
+      c.appendChild(div);
+    });
+  });
+}
+
+function renderKPIs() {
+  const c = document.getElementById('kpi-blocks');
+  const table = document.createElement('table');
+  table.className = 'kpi-table';
+  table.innerHTML = `<thead><tr><th>Metric</th><th>Target</th><th>Why It Matters</th></tr></thead><tbody id="kpi-tbody"></tbody>`;
+  c.appendChild(table);
+  const tbody = document.getElementById('kpi-tbody');
+  kpiData.forEach(cat => {
+    const cr = document.createElement('tr'); cr.className = 'cat-row';
+    cr.innerHTML = `<td colspan="3">${cat.cat}</td>`; tbody.appendChild(cr);
+    cat.metrics.forEach(m => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><strong>${m.name}</strong></td><td><span class="target-badge">${m.target}</span></td><td style="font-size:12px;color:#6b7280;">${m.why}</td>`;
+      tbody.appendChild(tr);
+    });
+  });
+
+  const sc = document.createElement('div'); sc.className = 'scorecard';
+  sc.innerHTML = `<h3>📋 Weekly Scorecard Sample</h3><div class="scorecard-grid">
+    ${[
+      {l:"Referral Group Meetings",t:"2/wk"},
+      {l:"Referral Partner 1:1s",t:"3–4/wk"},
+      {l:"Discovery Calls",t:"4–6/mo"},
+      {l:"2nd Call Conversations",t:"2–4/mo"},
+      {l:"Assessments Proposed",t:"3–4/mo"},
+      {l:"Assessments Sold",t:"1–2/mo"},
+      {l:"Referral Agreements",t:"2/mo"},
+      {l:"Engagements Sold",t:"1/qtr"},
+    ].map(k => `<div class="sc-card"><div class="sc-label">${k.l}</div><div class="sc-target">${k.t}</div></div>`).join('')}
+  </div>`;
+  c.appendChild(sc);
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleBlock(id) {
+  const el = document.getElementById(id);
+  const icon = document.getElementById(id + '-icon');
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  if (icon) icon.textContent = open ? '▼' : '▲';
+}
+
+renderRoadmap();
+renderKPIs();
+</script>
+</body>
+</html>
