@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Exit Factor Charlotte — Add / Update Content</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f5f6fa;color:#2d2d2d;padding:32px 24px;min-height:100vh}
+h1{font-size:24px;font-weight:800;color:#0d1f33;margin-bottom:5px}
+.meta{font-size:13px;color:#8a9bb0;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid #e8ecf2}
+h2{font-size:17px;font-weight:700;color:#0d1f33;margin:24px 0 12px;padding-bottom:5px;border-bottom:2px solid #e8ecf2}
+p{font-size:15px;line-height:1.7;color:#3d4d5e;margin-bottom:12px}
+
+.form-card{background:#fff;border:1px solid #dde3ed;border-radius:10px;padding:28px 32px;max-width:680px;margin-top:8px}
+
+label{display:block;font-size:12px;font-weight:700;color:#4a5a6a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.req{color:#e74c3c;margin-left:2px}
+
+input[type=text],input[type=url],textarea,select{
+  width:100%;padding:10px 14px;border:2px solid #dde3ed;border-radius:8px;
+  font-size:15px;font-family:'Inter',sans-serif;outline:none;
+  color:#0d1f33;background:#fff;margin-bottom:16px;display:block;
+  transition:border-color .15s}
+input[type=text]:focus,input[type=url]:focus,textarea:focus,select:focus{border-color:#1e6fbf}
+textarea{resize:vertical;min-height:80px}
+
+.field-group{margin-bottom:4px}
+
+.btn{padding:12px 28px;background:#0d1f33;color:#fff;border:none;border-radius:8px;
+  font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:8px;
+  transition:background .15s}
+.btn:hover{background:#1e3450}
+.btn:disabled{background:#8a9bb0;cursor:not-allowed}
+.btn-secondary{background:#f5f6fa;color:#0d1f33;border:2px solid #dde3ed;margin-left:10px}
+.btn-secondary:hover{background:#e8ecf2}
+
+.callout{background:#f0f7ff;border-left:4px solid #5ab4ff;padding:12px 16px;border-radius:0 6px 6px 0;margin:14px 0;font-size:14px;color:#1e3a5e;line-height:1.7}
+.callout.green{background:#f0faf4;border-left-color:#2ecc71;color:#1a4a30}
+.callout.yellow{background:#fffbf0;border-left-color:#f0a500;color:#5a3d00}
+.error-msg{background:#fff5f5;border:1px solid #f5c6cb;border-radius:6px;padding:14px 18px;color:#721c24;font-size:14px;margin:14px 0}
+
+.section-select{width:100%;max-width:420px;padding:11px 14px;border:2px solid #dde3ed;border-radius:8px;font-size:16px;font-family:'Inter',sans-serif;outline:none;color:#0d1f33;margin-bottom:20px;cursor:pointer}
+.section-select:focus{border-color:#1e6fbf}
+
+.required-note{font-size:12px;color:#8a9bb0;margin-bottom:16px}
+
+#success-banner{display:none;background:#f0faf4;border:1px solid #2ecc71;border-radius:8px;padding:16px 20px;margin-bottom:20px;color:#1a4a30;font-size:15px;font-weight:600}
+</style>
+</head>
+<body>
+
+<h1>Add / Update Content</h1>
+<div class="meta">Admin — Exit Factor Charlotte Wiki</div>
+
+<p>Select a section, fill in the fields, and click <strong>Submit</strong> to add a new entry directly to the Google Sheet. Entries with Status = <strong>Active</strong> appear in the wiki immediately.</p>
+
+<div id="success-banner">✅ Entry submitted successfully! It will appear in the wiki on next page load if Status is set to Active.</div>
+
+<div class="field-group">
+  <label>Section</label>
+  <select id="section-select" class="section-select" onchange="renderFields()">
+    <option value="">— Select a section —</option>
+    <option value="Policies_Procedures">Policies & Procedures</option>
+    <option value="Forms">Forms</option>
+    <option value="Templates">Templates</option>
+    <option value="Tools">Tools</option>
+    <option value="Guides">Guides</option>
+    <option value="Training">Training</option>
+    <option value="Education">Education</option>
+    <option value="Lead_Groups">Lead Groups</option>
+    <option value="Networks">Networks</option>
+    <option value="Referral_Partners">Referral Partners</option>
+    <option value="External_Links">External Links</option>
+    <option value="Content_Sources">Content Sources</option>
+  </select>
+</div>
+
+<div id="form-area"></div>
+<div id="msg-area"></div>
+
+<script>
+// ─── CONFIGURATION ───────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxo_lKCT_qBf9R7AjxSjAxxRUfTVm6FnbVfFyVNmlsUPBMM2dmaNYzNgIxbKGf5VN2P6Q/exec";
+
+// ─── SECTION FIELD DEFINITIONS ───────────────────────────
+const SECTIONS = {
+  "Policies_Procedures": {
+    label: "Policies & Procedures",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Title",         label:"Title",               type:"text",     required:true},
+      {key:"Description",   label:"Description",         type:"textarea", required:true},
+      {key:"Document-Link", label:"Document Link (URL)", type:"url"}
+    ]
+  },
+  "Forms": {
+    label: "Forms",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Category",      label:"Category",            type:"text",     required:true},
+      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
+      {key:"Name",          label:"Name",                type:"text",     required:true},
+      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
+      {key:"Notes",         label:"Notes",               type:"text"},
+      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
+    ]
+  },
+  "Templates": {
+    label: "Templates",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Category",      label:"Category",            type:"text",     required:true},
+      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
+      {key:"Name",          label:"Name",                type:"text",     required:true},
+      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
+      {key:"Notes",         label:"Notes",               type:"text"},
+      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
+    ]
+  },
+  "Tools": {
+    label: "Tools",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Category",      label:"Category",            type:"text",     required:true},
+      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
+      {key:"Name",          label:"Name",                type:"text",     required:true},
+      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
+      {key:"Notes",         label:"Notes",               type:"text"},
+      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
+    ]
+  },
+  "Guides": {
+    label: "Guides",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Category",      label:"Category",            type:"text",     required:true},
+      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
+      {key:"Name",          label:"Name",                type:"text",     required:true},
+      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
+      {key:"Notes",         label:"Notes",               type:"text"},
+      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
+    ]
+  },
+  "Training": {
+    label: "Training",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Category",      label:"Category",            type:"text",     required:true},
+      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
+      {key:"Name",          label:"Name",                type:"text",     required:true},
+      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
+      {key:"Notes",         label:"Notes",               type:"text"},
+      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
+    ]
+  },
+  "Education": {
+    label: "Education",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",   required:true},
+      {key:"Category",      label:"Category",            type:"text",     required:true},
+      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
+      {key:"Name",          label:"Name",                type:"text",     required:true},
+      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
+      {key:"Notes",         label:"Notes",               type:"text"},
+      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
+    ]
+  },
+  "Lead_Groups": {
+    label: "Lead Groups",
+    fields: [
+      {key:"Status",           label:"Status",           type:"status",  required:true},
+      {key:"Group_Name",       label:"Group Name",       type:"text",    required:true},
+      {key:"Meeting_Location", label:"Meeting Location", type:"text"},
+      {key:"Frequency",        label:"Frequency",        type:"text",    placeholder:"e.g. Weekly"},
+      {key:"Day_Time",         label:"Day & Time",       type:"text",    placeholder:"e.g. Tuesday 7:30am"},
+      {key:"Consultant",       label:"EF Consultant",    type:"text"},
+      {key:"Evaluation",       label:"Evaluation",       type:"eval"}
+    ]
+  },
+  "Networks": {
+    label: "Networks",
+    fields: [
+      {key:"Status",           label:"Status",           type:"status",  required:true},
+      {key:"Group_Name",       label:"Network Name",     type:"text",    required:true},
+      {key:"Meeting_Location", label:"Meeting Location", type:"text"},
+      {key:"Frequency",        label:"Frequency",        type:"text",    placeholder:"e.g. Monthly"},
+      {key:"Day_Time",         label:"Day & Time",       type:"text",    placeholder:"e.g. 1st Thursday 6pm"},
+      {key:"Consultant",       label:"EF Consultant",    type:"text"},
+      {key:"Evaluation",       label:"Evaluation",       type:"eval"}
+    ]
+  },
+  "Referral_Partners": {
+    label: "Referral Partners",
+    fields: [
+      {key:"Status",        label:"Status",              type:"status",  required:true},
+      {key:"Business_Type", label:"Business Type",       type:"text",    required:true, placeholder:"e.g. Attorney, CPA"},
+      {key:"Sub_Type",      label:"Sub-Type",            type:"text",    placeholder:"e.g. Estate Attorney"},
+      {key:"Business_Name", label:"Business Name",       type:"text",    required:true},
+      {key:"Business_URL",  label:"Business URL",        type:"url"},
+      {key:"Owner",         label:"Business Owner",      type:"text"},
+      {key:"Contact_Name",  label:"Contact Name",        type:"text"},
+      {key:"Contact_Title", label:"Contact Title",       type:"text"},
+      {key:"Contact_Email", label:"Contact Email",       type:"text"},
+      {key:"Contact_Phone", label:"Contact Phone",       type:"text"},
+      {key:"Agreement",     label:"Referral Agreement?", type:"yesno"},
+      {key:"Fee_To_Us",     label:"Fee They Pay Us",     type:"text"},
+      {key:"Fee_To_Them",   label:"Fee We Pay Them",     type:"text"}
+    ]
+  },
+  "External_Links": {
+    label: "External Links",
+    fields: [
+      {key:"Status",        label:"Status",       type:"status",   required:true},
+      {key:"Link_Category", label:"Category",     type:"text",     required:true},
+      {key:"Link_Name",     label:"Link Name",    type:"text",     required:true},
+      {key:"Link_URL",      label:"URL",          type:"url",      required:true},
+      {key:"Description",   label:"Description",  type:"textarea"}
+    ]
+  },
+  "Content_Sources": {
+    label: "Content Sources",
+    fields: [
+      {key:"Status",           label:"Status",      type:"status",   required:true},
+      {key:"Content_Category", label:"Category",    type:"text",     required:true},
+      {key:"Content_Name",     label:"Name",        type:"text",     required:true},
+      {key:"Content_URL",      label:"URL",         type:"url",      required:true},
+      {key:"Description",      label:"Description", type:"textarea"}
+    ]
+  }
+};
+
+// ─── RENDER FIELDS ────────────────────────────────────────
+function renderFields() {
+  const key = document.getElementById("section-select").value;
+  const area = document.getElementById("form-area");
+  const msg  = document.getElementById("msg-area");
+  msg.innerHTML = "";
+  document.getElementById("success-banner").style.display = "none";
+
+  if (!key || !SECTIONS[key]) { area.innerHTML = ""; return; }
+
+  const { fields } = SECTIONS[key];
+
+  let html = `<div class="form-card"><p class="required-note">Fields marked <span style="color:#e74c3c">*</span> are required.</p>`;
+
+  fields.forEach(f => {
+    const req = f.required ? `<span class="req">*</span>` : "";
+    let input = "";
+
+    if (f.type === "status") {
+      input = `<select id="f-${f.key}">
+        <option value="Active">Active</option>
+        <option value="Pending">Pending</option>
+        <option value="Inactive">Inactive</option>
+      </select>`;
+    } else if (f.type === "eval") {
+      input = `<select id="f-${f.key}">
+        <option value="Green">Green ✅</option>
+        <option value="Yellow">Yellow ⚠️</option>
+        <option value="Red">Red 🔴</option>
+      </select>`;
+    } else if (f.type === "yesno") {
+      input = `<select id="f-${f.key}">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>`;
+    } else if (f.type === "textarea") {
+      input = `<textarea id="f-${f.key}" placeholder="${f.placeholder||""}"></textarea>`;
+    } else {
+      input = `<input type="text" id="f-${f.key}" placeholder="${f.placeholder||""}"/>`;
+    }
+
+    html += `<div class="field-group">
+      <label>${f.label}${req}</label>
+      ${input}
+    </div>`;
+  });
+
+  html += `<div style="margin-top:8px">
+    <button class="btn" onclick="submitForm('${key}')">Submit</button>
+    <button class="btn btn-secondary" onclick="clearForm()">Clear</button>
+  </div></div>`;
+
+  area.innerHTML = html;
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────
+async function submitForm(sheetKey) {
+  const { fields } = SECTIONS[sheetKey];
+  const msg  = document.getElementById("msg-area");
+  const btn  = document.querySelector(".btn");
+  msg.innerHTML = "";
+
+  const row = {};
+  let valid = true;
+
+  fields.forEach(f => {
+    const el  = document.getElementById(`f-${f.key}`);
+    const val = el ? el.value.trim() : "";
+    if (f.required && !val) {
+      if (el) el.style.borderColor = "#e74c3c";
+      valid = false;
+    } else {
+      if (el) el.style.borderColor = "#dde3ed";
+      row[f.key] = val;
+    }
+  });
+
+  if (!valid) {
+    msg.innerHTML = `<div class="error-msg">⚠️ Please fill in all required fields marked with *.</div>`;
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  try {
+    const resp = await fetch(SCRIPT_URL, {
+      method:  "POST",
+      body:    JSON.stringify({ sheet: sheetKey, row }),
+      headers: {"Content-Type": "application/json"}
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      document.getElementById("success-banner").style.display = "block";
+      clearForm();
+      document.getElementById("section-select").value = sheetKey;
+      renderFields();
+    } else {
+      msg.innerHTML = `<div class="error-msg">⚠️ Error: ${data.error || "Unknown error. Please try again."}</div>`;
+    }
+  } catch(e) {
+    msg.innerHTML = `<div class="error-msg">⚠️ Could not reach the server: ${e.message}<br><small>Check that the Apps Script is deployed and the URL is correct.</small></div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Submit";
+  }
+}
+
+// ─── CLEAR FORM ───────────────────────────────────────────
+function clearForm() {
+  document.querySelectorAll("#form-area input, #form-area textarea").forEach(el => {
+    el.value = "";
+    el.style.borderColor = "#dde3ed";
+  });
+  document.querySelectorAll("#form-area select").forEach(el => {
+    el.selectedIndex = 0;
+    el.style.borderColor = "#dde3ed";
+  });
+  document.getElementById("msg-area").innerHTML = "";
+}
+</script>
+</body>
+</html>
