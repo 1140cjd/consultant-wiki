@@ -290,7 +290,7 @@ function renderFields() {
 async function submitForm(sheetKey) {
   const { fields } = SECTIONS[sheetKey];
   const msg  = document.getElementById("msg-area");
-  const btn  = document.querySelector(".btn");
+  const btns = document.querySelectorAll(".btn");
   msg.innerHTML = "";
 
   const row = {};
@@ -313,30 +313,34 @@ async function submitForm(sheetKey) {
     return;
   }
 
-  btn.disabled = true;
-  btn.textContent = "Submitting...";
+  btns.forEach(b => { b.disabled = true; });
+  msg.innerHTML = `<div class="callout">⏳ Submitting...</div>`;
 
   try {
-    const resp = await fetch(SCRIPT_URL, {
+    // Use no-cors mode to avoid CORS redirect blocking
+    // Google Apps Script redirects POST requests which browsers block in cors mode
+    await fetch(SCRIPT_URL, {
       method:  "POST",
+      mode:    "no-cors",
       body:    JSON.stringify({ sheet: sheetKey, row }),
-      headers: {"Content-Type": "application/json"}
+      headers: {"Content-Type": "text/plain"}
     });
-    const data = await resp.json();
 
-    if (data.success) {
-      document.getElementById("success-banner").style.display = "block";
-      clearForm();
-      document.getElementById("section-select").value = sheetKey;
-      renderFields();
-    } else {
-      msg.innerHTML = `<div class="error-msg">⚠️ Error: ${data.error || "Unknown error. Please try again."}</div>`;
-    }
+    // With no-cors we can't read the response, so we assume success
+    // if no network error was thrown
+    document.getElementById("success-banner").style.display = "block";
+    document.getElementById("success-banner").scrollIntoView({behavior:"smooth"});
+    msg.innerHTML = "";
+    clearForm();
+    // Re-select the same section so form stays ready for next entry
+    document.getElementById("section-select").value = sheetKey;
+    renderFields();
+
   } catch(e) {
-    msg.innerHTML = `<div class="error-msg">⚠️ Could not reach the server: ${e.message}<br><small>Check that the Apps Script is deployed and the URL is correct.</small></div>`;
+    msg.innerHTML = `<div class="error-msg">⚠️ Network error: ${e.message}<br>
+      <small>Check your internet connection and that the Apps Script URL is correct.</small></div>`;
   } finally {
-    btn.disabled = false;
-    btn.textContent = "Submit";
+    btns.forEach(b => { b.disabled = false; });
   }
 }
 
