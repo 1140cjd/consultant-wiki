@@ -1,361 +1,785 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Exit Factor Charlotte — Add / Update Content</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EF Charlotte Wiki — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f5f6fa;color:#2d2d2d;padding:32px 24px;min-height:100vh}
-h1{font-size:24px;font-weight:800;color:#0d1f33;margin-bottom:5px}
-.meta{font-size:13px;color:#8a9bb0;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid #e8ecf2}
-h2{font-size:17px;font-weight:700;color:#0d1f33;margin:24px 0 12px;padding-bottom:5px;border-bottom:2px solid #e8ecf2}
-p{font-size:15px;line-height:1.7;color:#3d4d5e;margin-bottom:12px}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ef-red: #C8102E; --ef-red-dark: #9E0B22; --ef-red-dim: rgba(200,16,46,0.12);
+  --bg: #111317; --panel: #1A1D24; --card: #20242E; --hover: #272B38;
+  --border: rgba(255,255,255,0.07); --text: #F0F2F5;
+  --muted: #8890A8; --dim: #555D72;
+  --success: #22C55E; --warning: #F59E0B; --info: #3B82F6;
+  --font: 'Poppins', sans-serif; --r: 8px; --rlg: 12px;
+}
+body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; min-height: 100vh; }
 
-.form-card{background:#fff;border:1px solid #dde3ed;border-radius:10px;padding:28px 32px;max-width:680px;margin-top:8px}
+/* HEADER */
+.header {
+  background: var(--panel); border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 16px;
+}
+.header img { height: 26px; }
+.header-title { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; }
 
-label{display:block;font-size:12px;font-weight:700;color:#4a5a6a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.req{color:#e74c3c;margin-left:2px}
+/* TABS */
+.tab-bar {
+  display: flex; gap: 2px; padding: 16px 24px 0;
+  border-bottom: 1px solid var(--border); background: var(--panel);
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: 10px 18px; font-family: var(--font); font-size: 13px; font-weight: 500;
+  color: var(--muted); background: none; border: none;
+  border-bottom: 2px solid transparent; cursor: pointer;
+  white-space: nowrap; transition: all .15s;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--ef-red); border-bottom-color: var(--ef-red); }
 
-input[type=text],input[type=url],textarea,select{
-  width:100%;padding:10px 14px;border:2px solid #dde3ed;border-radius:8px;
-  font-size:15px;font-family:'Inter',sans-serif;outline:none;
-  color:#0d1f33;background:#fff;margin-bottom:16px;display:block;
-  transition:border-color .15s}
-input[type=text]:focus,input[type=url]:focus,textarea:focus,select:focus{border-color:#1e6fbf}
-textarea{resize:vertical;min-height:80px}
+/* CONTENT */
+.content { max-width: 860px; margin: 0 auto; padding: 28px 24px; }
 
-.field-group{margin-bottom:4px}
+/* SECTION HEADING */
+.section-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.section-sub   { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
 
-.btn{padding:12px 28px;background:#0d1f33;color:#fff;border:none;border-radius:8px;
-  font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:8px;
-  transition:background .15s}
-.btn:hover{background:#1e3450}
-.btn:disabled{background:#8a9bb0;cursor:not-allowed}
-.btn-secondary{background:#f5f6fa;color:#0d1f33;border:2px solid #dde3ed;margin-left:10px}
-.btn-secondary:hover{background:#e8ecf2}
+/* FORM CARD */
+.form-card {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: var(--rlg); padding: 24px;
+}
 
-.callout{background:#f0f7ff;border-left:4px solid #5ab4ff;padding:12px 16px;border-radius:0 6px 6px 0;margin:14px 0;font-size:14px;color:#1e3a5e;line-height:1.7}
-.callout.green{background:#f0faf4;border-left-color:#2ecc71;color:#1a4a30}
-.callout.yellow{background:#fffbf0;border-left-color:#f0a500;color:#5a3d00}
-.error-msg{background:#fff5f5;border:1px solid #f5c6cb;border-radius:6px;padding:14px 18px;color:#721c24;font-size:14px;margin:14px 0}
+/* FIELD */
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .06em; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 10px 14px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); color: var(--text);
+  font-family: var(--font); font-size: 14px; outline: none;
+  transition: border-color .2s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ef-red); }
+.field textarea { resize: vertical; min-height: 80px; }
+.field select option { background: var(--card); }
+.field-hint { font-size: 12px; color: var(--dim); margin-top: 4px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:600px){ .field-row { grid-template-columns: 1fr; } }
 
-.section-select{width:100%;max-width:420px;padding:11px 14px;border:2px solid #dde3ed;border-radius:8px;font-size:16px;font-family:'Inter',sans-serif;outline:none;color:#0d1f33;margin-bottom:20px;cursor:pointer}
-.section-select:focus{border-color:#1e6fbf}
+/* SUBMIT */
+.btn {
+  padding: 10px 22px; border: none; border-radius: var(--r);
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.btn-primary { background: var(--ef-red); color: #fff; }
+.btn-primary:hover { background: var(--ef-red-dark); }
+.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--muted); }
+.btn-row { display: flex; gap: 10px; margin-top: 20px; }
 
-.required-note{font-size:12px;color:#8a9bb0;margin-bottom:16px}
+/* STATUS */
+.status-msg {
+  padding: 12px 16px; border-radius: var(--r); margin-top: 16px;
+  font-size: 14px; display: none;
+}
+.status-msg.success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #86EFAC; }
+.status-msg.error   { background: rgba(200,16,46,0.12);  border: 1px solid rgba(200,16,46,0.3);  color: #FCA5A5; }
 
-#success-banner{display:none;background:#f0faf4;border:1px solid #2ecc71;border-radius:8px;padding:16px 20px;margin-bottom:20px;color:#1a4a30;font-size:15px;font-weight:600}
+/* INFO BOX */
+.info-box {
+  background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25);
+  border-radius: var(--r); padding: 12px 16px; font-size: 13px; color: #93C5FD;
+  margin-bottom: 20px;
+}
+
+/* NAV TREE VIEWER */
+.nav-tree { margin-top: 20px; }
+.tree-section { margin-bottom: 20px; }
+.tree-section-header {
+  background: var(--ef-red-dim); border: 1px solid rgba(200,16,46,0.25);
+  border-radius: var(--r); padding: 10px 14px;
+  font-size: 14px; font-weight: 600; color: var(--text);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.tree-group { margin: 4px 0 4px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r); }
+.tree-group-header {
+  padding: 8px 14px; font-size: 13px; font-weight: 600; color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.tree-page {
+  padding: 7px 20px; font-size: 13px; color: var(--muted);
+  border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px;
+}
+.tree-page:last-child { border-bottom: none; }
+.tree-page-id { font-size: 11px; color: var(--dim); font-family: monospace; }
+.tree-badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500;
+}
+.badge-static  { background: rgba(59,130,246,0.15); color: #93C5FD; }
+.badge-dynamic { background: rgba(34,197,94,0.15); color: #86EFAC; }
+.badge-iframe  { background: rgba(245,158,11,0.15); color: #FCD34D; }
+
+/* LOADING */
+.loading { display:flex;align-items:center;gap:8px;color:var(--dim);font-size:14px; }
+.spinner { width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--ef-red);border-radius:50%;animation:spin .7s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
 </style>
 </head>
 <body>
 
-<h1>Add / Update Content</h1>
-<div class="meta">Admin — Exit Factor Charlotte Wiki</div>
-
-<p>Select a section, fill in the fields, and click <strong>Submit</strong> to add a new entry directly to the Google Sheet. Entries with Status = <strong>Active</strong> appear in the wiki immediately.</p>
-
-<div id="success-banner">✅ Entry submitted successfully! It will appear in the wiki on next page load if Status is set to Active.</div>
-
-<div class="field-group">
-  <label>Section</label>
-  <select id="section-select" class="section-select" onchange="renderFields()">
-    <option value="">— Select a section —</option>
-    <option value="Policies_Procedures">Policies & Procedures</option>
-    <option value="Forms">Forms</option>
-    <option value="Templates">Templates</option>
-    <option value="Tools">Tools</option>
-    <option value="Guides">Guides</option>
-    <option value="Training">Training</option>
-    <option value="Education">Education</option>
-    <option value="Lead_Groups">Lead Groups</option>
-    <option value="Networks">Networks</option>
-    <option value="Referral_Partners">Referral Partners</option>
-    <option value="External_Links">External Links</option>
-    <option value="Content_Sources">Content Sources</option>
-  </select>
+<div class="header">
+  <img src="https://1140cjd.github.io/consultant-wiki/exitfactor_logo.png" alt="EF">
+  <div class="header-title">Wiki Admin Panel</div>
 </div>
 
-<div id="form-area"></div>
-<div id="msg-area"></div>
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('add-content')">Add Content</button>
+  <button class="tab-btn" onclick="showTab('manage-nav')">Manage Navigation</button>
+  <button class="tab-btn" onclick="showTab('add-user')">Add User</button>
+  <button class="tab-btn" onclick="showTab('add-static')">Add/Edit Page</button>
+  <button class="tab-btn" onclick="showTab('referral')">Add Referral Partner</button>
+</div>
+
+<div class="content">
+
+  <!-- ══════════════════════════════════════════
+       TAB 1: ADD CONTENT
+  ══════════════════════════════════════════ -->
+  <div id="tab-add-content">
+    <div class="section-title">Add Content</div>
+    <div class="section-sub">Add any item to the wiki — forms, tools, training, guides, WTB resources, and more.</div>
+
+    <div class="info-box">
+      💡 Select a Section and Group to populate the Sub-Section list. All dropdowns are driven from the navigation you've set up in <strong>Manage Navigation</strong>.
+    </div>
+
+    <div class="form-card">
+      <!-- Row 1: Section → Group → Sub-Section -->
+      <div class="field-row">
+        <div class="field">
+          <label>Section *</label>
+          <select id="c-section" onchange="onSectionChange()">
+            <option value="">Loading…</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Group</label>
+          <select id="c-group" onchange="onGroupChange()">
+            <option value="">(none / flat section)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Sub-Section</label>
+        <select id="c-subsection">
+          <option value="">(none)</option>
+        </select>
+        <div class="field-hint">Sub-sections group items within a section. Leave blank for ungrouped items.</div>
+      </div>
+
+      <!-- Row 2: Category + Sub-Category -->
+      <div class="field-row">
+        <div class="field">
+          <label>Category</label>
+          <input type="text" id="c-category" placeholder="e.g. Templates, Outreach, Step 1">
+          <div class="field-hint">Groups items within a sub-section (accordion header)</div>
+        </div>
+        <div class="field">
+          <label>Sub-Category</label>
+          <input type="text" id="c-subcategory" placeholder="Optional further grouping">
+        </div>
+      </div>
+
+      <!-- Row 3: Name -->
+      <div class="field">
+        <label>Name *</label>
+        <input type="text" id="c-name" placeholder="Item name">
+      </div>
+
+      <!-- Row 4: Link Type + URL -->
+      <div class="field-row">
+        <div class="field">
+          <label>Link Type</label>
+          <select id="c-linktype" onchange="onLinkTypeChange()">
+            <option value="none">None</option>
+            <option value="download">Download (⬇ file)</option>
+            <option value="open">Open → (external URL)</option>
+            <option value="iframe">View ▶ (iframe panel)</option>
+          </select>
+        </div>
+        <div class="field" id="c-url-field" style="display:none">
+          <label>URL</label>
+          <input type="url" id="c-url" placeholder="https://…">
+        </div>
+      </div>
+
+      <!-- Row 5: Notes + Date -->
+      <div class="field-row">
+        <div class="field">
+          <label>Notes</label>
+          <input type="text" id="c-notes" placeholder="Short description or note">
+        </div>
+        <div class="field">
+          <label>Last Updated</label>
+          <input type="text" id="c-date" placeholder="e.g. Apr 2025">
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitContent()">Add Item</button>
+        <button class="btn btn-secondary" onclick="resetContentForm()">Reset</button>
+      </div>
+      <div class="status-msg" id="content-status"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB 2: MANAGE NAVIGATION
+  ══════════════════════════════════════════ -->
+  <div id="tab-manage-nav" style="display:none">
+    <div class="section-title">Manage Navigation</div>
+    <div class="section-sub">Add new sections, groups, and pages to the wiki. Changes reflect immediately on next wiki load.</div>
+
+    <!-- Add new nav item -->
+    <div class="form-card" style="margin-bottom:20px">
+      <div style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--text)">Add Navigation Item</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Section *</label>
+          <input type="text" id="n-section" list="n-section-list" placeholder="e.g. Working the Business">
+          <datalist id="n-section-list"></datalist>
+          <div class="field-hint">Top-level nav heading. Type existing or create new.</div>
+        </div>
+        <div class="field">
+          <label>Group</label>
+          <input type="text" id="n-group" list="n-group-list" placeholder="e.g. Marketing (leave blank for flat)">
+          <datalist id="n-group-list"></datalist>
+          <div class="field-hint">Second level. Leave blank to make this a flat (top-level) item.</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Nav Label *</label>
+          <input type="text" id="n-label" placeholder="Text shown in the sidebar">
+        </div>
+        <div class="field">
+          <label>Page ID *</label>
+          <input type="text" id="n-pageid" placeholder="e.g. wtb-marketing-leadgen">
+          <div class="field-hint">Unique ID, no spaces (use hyphens)</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Content Type *</label>
+          <select id="n-contenttype" onchange="onContentTypeChange()">
+            <option value="dynamic">Dynamic (Wiki_Content items)</option>
+            <option value="static">Static (text from Pages sheet)</option>
+            <option value="iframe">Iframe (embedded external tool)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Sort Order</label>
+          <input type="number" id="n-sort" placeholder="10, 20, 30…" value="10">
+        </div>
+      </div>
+
+      <!-- Iframe URL — shown only when content type = iframe -->
+      <div class="field" id="n-iframeurl-field" style="display:none">
+        <label>Iframe URL</label>
+        <input type="url" id="n-iframeurl" placeholder="https://…">
+      </div>
+
+      <!-- Sub-section filter — shown for dynamic pages -->
+      <div class="field" id="n-subsection-field">
+        <label>Sub-Section Filter</label>
+        <input type="text" id="n-subsection" placeholder="Optional — filter Wiki_Content to specific sub-section">
+        <div class="field-hint">Leave blank to show all content for this Section+Group</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitNavItem()">Add to Navigation</button>
+        <button class="btn btn-secondary" onclick="resetNavForm()">Reset</button>
+      </div>
+      <div class="status-msg" id="nav-status"></div>
+    </div>
+
+    <!-- Current Nav Tree -->
+    <div style="font-size:15px;font-weight:600;margin-bottom:12px">Current Navigation Tree</div>
+    <div id="nav-tree-view">
+      <div class="loading"><div class="spinner"></div> Loading nav tree…</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB 3: ADD USER
+  ══════════════════════════════════════════ -->
+  <div id="tab-add-user" style="display:none">
+    <div class="section-title">Add Consultant</div>
+    <div class="section-sub">Add a new consultant login to the wiki.</div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field">
+          <label>Full Name *</label>
+          <input type="text" id="u-name" placeholder="First Last">
+        </div>
+        <div class="field">
+          <label>Username *</label>
+          <input type="text" id="u-username" placeholder="firstname.lastname">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Password *</label>
+          <input type="text" id="u-password" placeholder="Temporary password">
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="u-status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitUser()">Add Consultant</button>
+        <button class="btn btn-secondary" onclick="resetUserForm()">Reset</button>
+      </div>
+      <div class="status-msg" id="user-status"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB 4: ADD/EDIT STATIC PAGE
+  ══════════════════════════════════════════ -->
+  <div id="tab-add-static" style="display:none">
+    <div class="section-title">Add / Edit Page Content</div>
+    <div class="section-sub">Manage static page content (Pages sheet). Uses the wiki's plain-text shortcode format.</div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field">
+          <label>Page ID *</label>
+          <input type="text" id="p-pageid" placeholder="Matches Page_ID in Wiki_Nav">
+        </div>
+        <div class="field">
+          <label>Section</label>
+          <input type="text" id="p-section" placeholder="e.g. Start Here">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Nav Label</label>
+          <input type="text" id="p-label" placeholder="Display name">
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="p-status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Content (plain-text shortcode format)</label>
+        <textarea id="p-content" style="min-height:200px;font-size:13px" placeholder="# Heading&#10;## Subheading&#10;- bullet&#10;[card: Title | Description | Link Text | URL]&#10;[iframe: https://...]&#10;> Info callout&#10;>! Warning&#10;>+ Success"></textarea>
+        <div class="field-hint">Supports: # h1, ## h2, - bullets, **bold**, [link](url), [card:], [iframe:], [policy:], [venue:], [table-header:], [table-row:], &gt; callout, &gt;! warning, &gt;+ success</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitPage()">Save Page</button>
+        <button class="btn btn-secondary" onclick="resetPageForm()">Reset</button>
+      </div>
+      <div class="status-msg" id="page-status"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB 5: REFERRAL PARTNER
+  ══════════════════════════════════════════ -->
+  <div id="tab-referral" style="display:none">
+    <div class="section-title">Add Referral Partner</div>
+    <div class="section-sub">Add a new referral partner to the Referral_Partners tab.</div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field">
+          <label>Business Type</label>
+          <select id="rp-biztype">
+            <option value="">Select…</option>
+            <option>CPA / Accountant</option>
+            <option>Attorney / Law Firm</option>
+            <option>Financial Advisor / Wealth Mgmt</option>
+            <option>Business Broker</option>
+            <option>Commercial Banker</option>
+            <option>Insurance Broker</option>
+            <option>HR / PEO Consultant</option>
+            <option>M&A Advisor</option>
+            <option>Executive Coach</option>
+            <option>Marketing Agency</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Sub-Type</label>
+          <input type="text" id="rp-subtype" placeholder="e.g. Business Tax Specialist">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Business Name</label>
+          <input type="text" id="rp-bizname">
+        </div>
+        <div class="field">
+          <label>Business URL</label>
+          <input type="url" id="rp-bizurl" placeholder="https://…">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Owner</label>
+          <input type="text" id="rp-owner">
+        </div>
+        <div class="field">
+          <label>Contact Name</label>
+          <input type="text" id="rp-contact">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Contact Title</label>
+          <input type="text" id="rp-title">
+        </div>
+        <div class="field">
+          <label>Contact Email</label>
+          <input type="email" id="rp-email">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Contact Phone</label>
+          <input type="tel" id="rp-phone">
+        </div>
+        <div class="field">
+          <label>Agreement on File?</label>
+          <select id="rp-agreement">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Fee To Us</label>
+          <input type="text" id="rp-feetus" placeholder="e.g. 10%">
+        </div>
+        <div class="field">
+          <label>Fee To Them</label>
+          <input type="text" id="rp-feethem" placeholder="e.g. 10%">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitReferral()">Add Referral Partner</button>
+        <button class="btn btn-secondary" onclick="resetReferralForm()">Reset</button>
+      </div>
+      <div class="status-msg" id="referral-status"></div>
+    </div>
+  </div>
+
+</div><!-- /content -->
 
 <script>
-// ─── CONFIGURATION ───────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxo_lKCT_qBf9R7AjxSjAxxRUfTVm6FnbVfFyVNmlsUPBMM2dmaNYzNgIxbKGf5VN2P6Q/exec";
+const PROXY = 'https://script.google.com/macros/s/AKfycbwDeMvkudRFpD1BNDc7Z1f7pF2Ivxte0AkpczsiOAlcnaBlHAVUU_BjG_f8RZsCsvH9kA/exec';
 
-// ─── SECTION FIELD DEFINITIONS ───────────────────────────
-const SECTIONS = {
-  "Policies_Procedures": {
-    label: "Policies & Procedures",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Title",         label:"Title",               type:"text",     required:true},
-      {key:"Description",   label:"Description",         type:"textarea", required:true},
-      {key:"Document-Link", label:"Document Link (URL)", type:"url"}
-    ]
-  },
-  "Forms": {
-    label: "Forms",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Category",      label:"Category",            type:"text",     required:true},
-      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
-      {key:"Name",          label:"Name",                type:"text",     required:true},
-      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
-      {key:"Notes",         label:"Notes",               type:"text"},
-      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
-    ]
-  },
-  "Templates": {
-    label: "Templates",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Category",      label:"Category",            type:"text",     required:true},
-      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
-      {key:"Name",          label:"Name",                type:"text",     required:true},
-      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
-      {key:"Notes",         label:"Notes",               type:"text"},
-      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
-    ]
-  },
-  "Tools": {
-    label: "Tools",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Category",      label:"Category",            type:"text",     required:true},
-      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
-      {key:"Name",          label:"Name",                type:"text",     required:true},
-      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
-      {key:"Notes",         label:"Notes",               type:"text"},
-      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
-    ]
-  },
-  "Guides": {
-    label: "Guides",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Category",      label:"Category",            type:"text",     required:true},
-      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
-      {key:"Name",          label:"Name",                type:"text",     required:true},
-      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
-      {key:"Notes",         label:"Notes",               type:"text"},
-      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
-    ]
-  },
-  "Training": {
-    label: "Training",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Category",      label:"Category",            type:"text",     required:true},
-      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
-      {key:"Name",          label:"Name",                type:"text",     required:true},
-      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
-      {key:"Notes",         label:"Notes",               type:"text"},
-      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
-    ]
-  },
-  "Education": {
-    label: "Education",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",   required:true},
-      {key:"Category",      label:"Category",            type:"text",     required:true},
-      {key:"Sub-Category",  label:"Sub-Category",        type:"text"},
-      {key:"Name",          label:"Name",                type:"text",     required:true},
-      {key:"Download-Link", label:"Download Link (URL)", type:"url"},
-      {key:"Notes",         label:"Notes",               type:"text"},
-      {key:"Last-Updated",  label:"Last Updated",        type:"text",     placeholder:"e.g. 3/15/2026"}
-    ]
-  },
-  "Lead_Groups": {
-    label: "Lead Groups",
-    fields: [
-      {key:"Status",           label:"Status",           type:"status",  required:true},
-      {key:"Group_Name",       label:"Group Name",       type:"text",    required:true},
-      {key:"Meeting_Location", label:"Meeting Location", type:"text"},
-      {key:"Frequency",        label:"Frequency",        type:"text",    placeholder:"e.g. Weekly"},
-      {key:"Day_Time",         label:"Day & Time",       type:"text",    placeholder:"e.g. Tuesday 7:30am"},
-      {key:"Consultant",       label:"EF Consultant",    type:"text"},
-      {key:"Evaluation",       label:"Evaluation",       type:"eval"}
-    ]
-  },
-  "Networks": {
-    label: "Networks",
-    fields: [
-      {key:"Status",           label:"Status",           type:"status",  required:true},
-      {key:"Group_Name",       label:"Network Name",     type:"text",    required:true},
-      {key:"Meeting_Location", label:"Meeting Location", type:"text"},
-      {key:"Frequency",        label:"Frequency",        type:"text",    placeholder:"e.g. Monthly"},
-      {key:"Day_Time",         label:"Day & Time",       type:"text",    placeholder:"e.g. 1st Thursday 6pm"},
-      {key:"Consultant",       label:"EF Consultant",    type:"text"},
-      {key:"Evaluation",       label:"Evaluation",       type:"eval"}
-    ]
-  },
-  "Referral_Partners": {
-    label: "Referral Partners",
-    fields: [
-      {key:"Status",        label:"Status",              type:"status",  required:true},
-      {key:"Business_Type", label:"Business Type",       type:"text",    required:true, placeholder:"e.g. Attorney, CPA"},
-      {key:"Sub_Type",      label:"Sub-Type",            type:"text",    placeholder:"e.g. Estate Attorney"},
-      {key:"Business_Name", label:"Business Name",       type:"text",    required:true},
-      {key:"Business_URL",  label:"Business URL",        type:"url"},
-      {key:"Owner",         label:"Business Owner",      type:"text"},
-      {key:"Contact_Name",  label:"Contact Name",        type:"text"},
-      {key:"Contact_Title", label:"Contact Title",       type:"text"},
-      {key:"Contact_Email", label:"Contact Email",       type:"text"},
-      {key:"Contact_Phone", label:"Contact Phone",       type:"text"},
-      {key:"Agreement",     label:"Referral Agreement?", type:"yesno"},
-      {key:"Fee_To_Us",     label:"Fee They Pay Us",     type:"text"},
-      {key:"Fee_To_Them",   label:"Fee We Pay Them",     type:"text"}
-    ]
-  },
-  "External_Links": {
-    label: "External Links",
-    fields: [
-      {key:"Status",        label:"Status",       type:"status",   required:true},
-      {key:"Link_Category", label:"Category",     type:"text",     required:true},
-      {key:"Link_Name",     label:"Link Name",    type:"text",     required:true},
-      {key:"Link_URL",      label:"URL",          type:"url",      required:true},
-      {key:"Description",   label:"Description",  type:"textarea"}
-    ]
-  },
-  "Content_Sources": {
-    label: "Content Sources",
-    fields: [
-      {key:"Status",           label:"Status",      type:"status",   required:true},
-      {key:"Content_Category", label:"Category",    type:"text",     required:true},
-      {key:"Content_Name",     label:"Name",        type:"text",     required:true},
-      {key:"Content_URL",      label:"URL",         type:"url",      required:true},
-      {key:"Description",      label:"Description", type:"textarea"}
-    ]
-  }
-};
-
-// ─── RENDER FIELDS ────────────────────────────────────────
-function renderFields() {
-  const key = document.getElementById("section-select").value;
-  const area = document.getElementById("form-area");
-  const msg  = document.getElementById("msg-area");
-  msg.innerHTML = "";
-  document.getElementById("success-banner").style.display = "none";
-
-  if (!key || !SECTIONS[key]) { area.innerHTML = ""; return; }
-
-  const { fields } = SECTIONS[key];
-
-  let html = `<div class="form-card"><p class="required-note">Fields marked <span style="color:#e74c3c">*</span> are required.</p>`;
-
-  fields.forEach(f => {
-    const req = f.required ? `<span class="req">*</span>` : "";
-    let input = "";
-
-    if (f.type === "status") {
-      input = `<select id="f-${f.key}">
-        <option value="Active">Active</option>
-        <option value="Pending">Pending</option>
-        <option value="Inactive">Inactive</option>
-      </select>`;
-    } else if (f.type === "eval") {
-      input = `<select id="f-${f.key}">
-        <option value="Green">Green ✅</option>
-        <option value="Yellow">Yellow ⚠️</option>
-        <option value="Red">Red 🔴</option>
-      </select>`;
-    } else if (f.type === "yesno") {
-      input = `<select id="f-${f.key}">
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>`;
-    } else if (f.type === "textarea") {
-      input = `<textarea id="f-${f.key}" placeholder="${f.placeholder||""}"></textarea>`;
-    } else {
-      input = `<input type="text" id="f-${f.key}" placeholder="${f.placeholder||""}"/>`;
-    }
-
-    html += `<div class="field-group">
-      <label>${f.label}${req}</label>
-      ${input}
-    </div>`;
-  });
-
-  html += `<div style="margin-top:8px">
-    <button class="btn" onclick="submitForm('${key}')">Submit</button>
-    <button class="btn btn-secondary" onclick="clearForm()">Clear</button>
-  </div></div>`;
-
-  area.innerHTML = html;
+// ══════════════════════════════════════
+// TABS
+// ══════════════════════════════════════
+function showTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('tab-' + id).style.display = 'block';
+  event.target.classList.add('active');
+  if (id === 'manage-nav') loadNavTree();
 }
 
-// ─── SUBMIT ───────────────────────────────────────────────
-async function submitForm(sheetKey) {
-  const { fields } = SECTIONS[sheetKey];
-  const msg  = document.getElementById("msg-area");
-  const btns = document.querySelectorAll(".btn");
-  msg.innerHTML = "";
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+async function fetchTab(tab) {
+  const res = await fetch(`${PROXY}?action=read&tab=${tab}`);
+  const data = await res.json();
+  return data.rows || [];
+}
 
-  const row = {};
-  let valid = true;
-
-  fields.forEach(f => {
-    const el  = document.getElementById(`f-${f.key}`);
-    const val = el ? el.value.trim() : "";
-    if (f.required && !val) {
-      if (el) el.style.borderColor = "#e74c3c";
-      valid = false;
-    } else {
-      if (el) el.style.borderColor = "#dde3ed";
-      row[f.key] = val;
-    }
+async function postRow(tab, row) {
+  await fetch(PROXY, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ action: 'append', tab, row })
   });
+}
 
-  if (!valid) {
-    msg.innerHTML = `<div class="error-msg">⚠️ Please fill in all required fields marked with *.</div>`;
+function showStatus(id, type, msg) {
+  const el = document.getElementById(id);
+  el.className = 'status-msg ' + type;
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+function v(id) { return document.getElementById(id)?.value?.trim() || ''; }
+
+// ══════════════════════════════════════
+// LOAD NAV DATA FOR DROPDOWNS
+// ══════════════════════════════════════
+let navCache = [];
+async function loadNavCache() {
+  if (navCache.length > 0) return navCache;
+  navCache = await fetchTab('Wiki_Nav');
+  return navCache;
+}
+
+async function populateSectionDropdown() {
+  await loadNavCache();
+  const sections = [...new Set(navCache.filter(r => r.Status === 'Active').map(r => r.Section))];
+  const sel = document.getElementById('c-section');
+  sel.innerHTML = '<option value="">Select section…</option>' +
+    sections.map(s => `<option>${s}</option>`).join('');
+
+  // Also populate datalists
+  document.getElementById('n-section-list').innerHTML = sections.map(s => `<option value="${s}">`).join('');
+}
+
+function onSectionChange() {
+  const sec = v('c-section');
+  const groups = [...new Set(
+    navCache.filter(r => r.Status === 'Active' && r.Section === sec && r.Group).map(r => r.Group)
+  )];
+  const sel = document.getElementById('c-group');
+  sel.innerHTML = '<option value="">(none / flat)</option>' +
+    groups.map(g => `<option>${g}</option>`).join('');
+
+  document.getElementById('n-group-list').innerHTML = groups.map(g => `<option value="${g}">`).join('');
+  onGroupChange();
+}
+
+function onGroupChange() {
+  const sec = v('c-section');
+  const grp = v('c-group');
+  // Populate sub-sections from existing Wiki_Content
+  // For now just reset — user types their own sub-section
+  // Could be enhanced to load unique sub-sections from content
+  const sel = document.getElementById('c-subsection');
+  sel.innerHTML = '<option value="">(none)</option>';
+}
+
+function onLinkTypeChange() {
+  const type = v('c-linktype');
+  document.getElementById('c-url-field').style.display = (type === 'none') ? 'none' : 'block';
+}
+
+function onContentTypeChange() {
+  const type = v('n-contenttype');
+  document.getElementById('n-iframeurl-field').style.display = (type === 'iframe') ? 'block' : 'none';
+  document.getElementById('n-subsection-field').style.display = (type === 'dynamic') ? 'block' : 'none';
+}
+
+// ══════════════════════════════════════
+// TAB 1: ADD CONTENT
+// ══════════════════════════════════════
+async function submitContent() {
+  const name = v('c-name');
+  const section = v('c-section');
+  if (!name || !section) { showStatus('content-status','error','Name and Section are required.'); return; }
+
+  const row = {
+    Status: 'Active',
+    Section: section,
+    Group: v('c-group'),
+    Sub_Section: v('c-subsection') || document.getElementById('c-subsection').options[document.getElementById('c-subsection').selectedIndex]?.text || '',
+    Category: v('c-category'),
+    Sub_Category: v('c-subcategory'),
+    Name: name,
+    Link_Type: v('c-linktype'),
+    Link_URL: v('c-url'),
+    Notes: v('c-notes'),
+    Last_Updated: v('c-date') || new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'})
+  };
+
+  await postRow('Wiki_Content', row);
+  showStatus('content-status','success','✓ Item added to Wiki_Content.');
+  resetContentForm();
+}
+
+function resetContentForm() {
+  ['c-category','c-subcategory','c-name','c-url','c-notes','c-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('c-linktype').value = 'none';
+  document.getElementById('c-url-field').style.display = 'none';
+}
+
+// ══════════════════════════════════════
+// TAB 2: MANAGE NAV
+// ══════════════════════════════════════
+async function submitNavItem() {
+  const section = v('n-section');
+  const label   = v('n-label');
+  const pageId  = v('n-pageid');
+  if (!section || !label || !pageId) { showStatus('nav-status','error','Section, Nav Label, and Page ID are required.'); return; }
+
+  if (!/^[a-z0-9\-]+$/.test(pageId)) {
+    showStatus('nav-status','error','Page ID must be lowercase letters, numbers, and hyphens only.');
     return;
   }
 
-  btns.forEach(b => { b.disabled = true; });
-  msg.innerHTML = `<div class="callout">⏳ Submitting...</div>`;
+  const row = {
+    Status: 'Active',
+    Section: section,
+    Group: v('n-group'),
+    Page_ID: pageId,
+    Nav_Label: label,
+    Content_Type: v('n-contenttype'),
+    Sort_Order: v('n-sort') || '10',
+    Iframe_URL: v('n-iframeurl'),
+    Sub_Section_Filter: v('n-subsection')
+  };
 
-  try {
-    // Use no-cors mode to avoid CORS redirect blocking
-    // Google Apps Script redirects POST requests which browsers block in cors mode
-    await fetch(SCRIPT_URL, {
-      method:  "POST",
-      mode:    "no-cors",
-      body:    JSON.stringify({ sheet: sheetKey, row }),
-      headers: {"Content-Type": "text/plain"}
+  await postRow('Wiki_Nav', row);
+  navCache = []; // clear cache
+  showStatus('nav-status','success','✓ Navigation item added. Reload the wiki to see it.');
+  resetNavForm();
+  setTimeout(loadNavTree, 1500);
+}
+
+function resetNavForm() {
+  ['n-section','n-group','n-label','n-pageid','n-iframeurl','n-subsection'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('n-sort').value = '10';
+  document.getElementById('n-contenttype').value = 'dynamic';
+  document.getElementById('n-iframeurl-field').style.display = 'none';
+  document.getElementById('n-subsection-field').style.display = 'block';
+}
+
+async function loadNavTree() {
+  const view = document.getElementById('nav-tree-view');
+  view.innerHTML = '<div class="loading"><div class="spinner"></div> Loading…</div>';
+  const rows = await fetchTab('Wiki_Nav');
+  const active = rows.filter(r => r.Status === 'Active');
+
+  if (active.length === 0) { view.innerHTML = '<div style="color:var(--dim);font-size:14px">No navigation items yet.</div>'; return; }
+
+  // Group by Section → Group
+  const sections = {};
+  const secOrder = [];
+  active.forEach(r => {
+    const sec = r.Section || 'General';
+    const grp = r.Group || '__flat__';
+    if (!sections[sec]) { sections[sec] = {}; secOrder.push(sec); }
+    if (!sections[sec][grp]) sections[sec][grp] = [];
+    sections[sec][grp].push(r);
+  });
+
+  let html = '<div class="nav-tree">';
+  secOrder.forEach(sec => {
+    html += `<div class="tree-section"><div class="tree-section-header">${esc(sec)}</div>`;
+    const grps = sections[sec];
+    Object.keys(grps).forEach(grp => {
+      if (grp !== '__flat__') {
+        html += `<div class="tree-group"><div class="tree-group-header">${esc(grp)}</div>`;
+      }
+      grps[grp].forEach(r => {
+        const badgeClass = { static: 'badge-static', dynamic: 'badge-dynamic', iframe: 'badge-iframe' }[r.Content_Type] || 'badge-static';
+        html += `<div class="tree-page">
+          <span>${esc(r.Nav_Label)}</span>
+          <span class="tree-page-id">${esc(r.Page_ID)}</span>
+          <span class="tree-badge ${badgeClass}">${esc(r.Content_Type || 'static')}</span>
+        </div>`;
+      });
+      if (grp !== '__flat__') html += `</div>`;
     });
-
-    // With no-cors we can't read the response, so we assume success
-    // if no network error was thrown
-    document.getElementById("success-banner").style.display = "block";
-    document.getElementById("success-banner").scrollIntoView({behavior:"smooth"});
-    msg.innerHTML = "";
-    clearForm();
-    // Re-select the same section so form stays ready for next entry
-    document.getElementById("section-select").value = sheetKey;
-    renderFields();
-
-  } catch(e) {
-    msg.innerHTML = `<div class="error-msg">⚠️ Network error: ${e.message}<br>
-      <small>Check your internet connection and that the Apps Script URL is correct.</small></div>`;
-  } finally {
-    btns.forEach(b => { b.disabled = false; });
-  }
+    html += `</div>`;
+  });
+  html += '</div>';
+  view.innerHTML = html;
 }
 
-// ─── CLEAR FORM ───────────────────────────────────────────
-function clearForm() {
-  document.querySelectorAll("#form-area input, #form-area textarea").forEach(el => {
-    el.value = "";
-    el.style.borderColor = "#dde3ed";
-  });
-  document.querySelectorAll("#form-area select").forEach(el => {
-    el.selectedIndex = 0;
-    el.style.borderColor = "#dde3ed";
-  });
-  document.getElementById("msg-area").innerHTML = "";
+// ══════════════════════════════════════
+// TAB 3: ADD USER
+// ══════════════════════════════════════
+async function submitUser() {
+  const name = v('u-name'), user = v('u-username'), pass = v('u-password');
+  if (!name || !user || !pass) { showStatus('user-status','error','All fields required.'); return; }
+  await postRow('Team_Logins', { Full_Name: name, Username: user, Password: pass, Status: v('u-status') });
+  showStatus('user-status','success','✓ Consultant added.');
+  resetUserForm();
 }
+function resetUserForm() { ['u-name','u-username','u-password'].forEach(id => document.getElementById(id).value = ''); }
+
+// ══════════════════════════════════════
+// TAB 4: STATIC PAGE
+// ══════════════════════════════════════
+async function submitPage() {
+  const pageId = v('p-pageid'), content = document.getElementById('p-content').value.trim();
+  if (!pageId) { showStatus('page-status','error','Page ID required.'); return; }
+  await postRow('Pages', {
+    Status: v('p-status') || 'Active',
+    Page_ID: pageId,
+    Section: v('p-section'),
+    Nav_Label: v('p-label'),
+    Sort_Order: '10',
+    Content: content
+  });
+  showStatus('page-status','success','✓ Page saved.');
+  resetPageForm();
+}
+function resetPageForm() { ['p-pageid','p-section','p-label','p-content'].forEach(id => document.getElementById(id).value = ''); }
+
+// ══════════════════════════════════════
+// TAB 5: REFERRAL PARTNER
+// ══════════════════════════════════════
+async function submitReferral() {
+  const biz = v('rp-bizname'), contact = v('rp-contact');
+  if (!biz) { showStatus('referral-status','error','Business Name required.'); return; }
+  await postRow('Referral_Partners', {
+    Status: 'Active',
+    Business_Type: v('rp-biztype'), Sub_Type: v('rp-subtype'),
+    Business_Name: biz, Business_URL: v('rp-bizurl'),
+    Owner: v('rp-owner'), Contact_Name: contact,
+    Contact_Title: v('rp-title'), Contact_Email: v('rp-email'),
+    Contact_Phone: v('rp-phone'), Agreement: v('rp-agreement'),
+    Fee_To_Us: v('rp-feetus'), Fee_To_Them: v('rp-feethem')
+  });
+  showStatus('referral-status','success','✓ Referral partner added.');
+  resetReferralForm();
+}
+function resetReferralForm() {
+  ['rp-subtype','rp-bizname','rp-bizurl','rp-owner','rp-contact','rp-title','rp-email','rp-phone','rp-feetus','rp-feethem']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('rp-biztype').value = '';
+  document.getElementById('rp-agreement').value = 'No';
+}
+
+// ══════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+populateSectionDropdown();
 </script>
 </body>
 </html>
