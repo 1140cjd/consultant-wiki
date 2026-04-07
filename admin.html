@@ -8,64 +8,70 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ef-red: #C8102E; --ef-red-dark: #9E0B22; --ef-red-dim: rgba(200,16,46,0.12);
-  --bg: #111317; --panel: #1A1D24; --card: #20242E; --hover: #272B38;
-  --border: rgba(255,255,255,0.07); --text: #F0F2F5;
-  --muted: #8890A8; --dim: #555D72;
-  --success: #22C55E; --warning: #F59E0B; --info: #3B82F6;
+  --ef-blue: #002D62; --ef-blue-dark: #001F45; --ef-blue-dim: rgba(0,45,98,0.07);
+  --ef-red: #C8102E;
+  --bg: #F4F6FA; --panel: #FFFFFF; --card: #F7F8FC; --hover: #EEF1F7;
+  --border: rgba(0,45,98,0.1); --text: #0D1B2E;
+  --muted: #4A5568; --dim: #9AA5B4;
+  --success: #15803D; --warning: #D97706; --info: #1D4ED8;
   --font: 'Poppins', sans-serif; --r: 8px; --rlg: 12px;
 }
 body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; min-height: 100vh; }
 
 /* HEADER */
 .header {
-  background: var(--panel); border-bottom: 1px solid var(--border);
+  background: var(--ef-blue); border-bottom: none;
   padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .header img { height: 26px; }
-.header-title { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; }
+.header-title { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: .05em; text-transform: uppercase; }
 
 /* TABS */
 .tab-bar {
-  display: flex; gap: 2px; padding: 16px 24px 0;
+  display: flex; gap: 2px; padding: 0 24px;
   border-bottom: 1px solid var(--border); background: var(--panel);
-  overflow-x: auto;
+  overflow-x: auto; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 .tab-btn {
-  padding: 10px 18px; font-family: var(--font); font-size: 13px; font-weight: 500;
+  padding: 14px 18px; font-family: var(--font); font-size: 13px; font-weight: 500;
   color: var(--muted); background: none; border: none;
   border-bottom: 2px solid transparent; cursor: pointer;
   white-space: nowrap; transition: all .15s;
 }
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active { color: var(--ef-red); border-bottom-color: var(--ef-red); }
+.tab-btn:hover { color: var(--ef-blue); }
+.tab-btn.active { color: var(--ef-blue); border-bottom-color: var(--ef-blue); font-weight: 600; }
 
 /* CONTENT */
 .content { max-width: 860px; margin: 0 auto; padding: 28px 24px; }
 
 /* SECTION HEADING */
-.section-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.section-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
 .section-sub   { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
 
 /* FORM CARD */
 .form-card {
   background: var(--panel); border: 1px solid var(--border);
   border-radius: var(--rlg); padding: 24px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
 }
 
 /* FIELD */
 .field { margin-bottom: 16px; }
-.field label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .06em; }
+.field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .06em; }
 .field input, .field select, .field textarea {
   width: 100%; padding: 10px 14px;
-  background: var(--card); border: 1px solid var(--border);
+  background: #fff; border: 1px solid rgba(0,45,98,0.18);
   border-radius: var(--r); color: var(--text);
   font-family: var(--font); font-size: 14px; outline: none;
-  transition: border-color .2s;
+  transition: border-color .2s, box-shadow .2s;
 }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ef-red); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--ef-blue);
+  box-shadow: 0 0 0 3px rgba(0,45,98,0.08);
+}
 .field textarea { resize: vertical; min-height: 80px; }
-.field select option { background: var(--card); }
+.field select option { background: #fff; color: var(--text); }
 .field-hint { font-size: 12px; color: var(--dim); margin-top: 4px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media(max-width:600px){ .field-row { grid-template-columns: 1fr; } }
@@ -76,10 +82,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
   font-family: var(--font); font-size: 14px; font-weight: 600;
   cursor: pointer; transition: all .2s;
 }
-.btn-primary { background: var(--ef-red); color: #fff; }
-.btn-primary:hover { background: var(--ef-red-dark); }
-.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-.btn-secondary:hover { border-color: var(--muted); }
+.btn-primary { background: var(--ef-blue); color: #fff; }
+.btn-primary:hover { background: var(--ef-blue-dark); }
+.btn-secondary { background: var(--card); color: var(--text); border: 1px solid rgba(0,45,98,0.18); }
+.btn-secondary:hover { border-color: var(--ef-blue); color: var(--ef-blue); }
 .btn-row { display: flex; gap: 10px; margin-top: 20px; }
 
 /* STATUS */
@@ -87,13 +93,13 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
   padding: 12px 16px; border-radius: var(--r); margin-top: 16px;
   font-size: 14px; display: none;
 }
-.status-msg.success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #86EFAC; }
-.status-msg.error   { background: rgba(200,16,46,0.12);  border: 1px solid rgba(200,16,46,0.3);  color: #FCA5A5; }
+.status-msg.success { background: #F0FDF4; border: 1px solid #86EFAC; color: #15803D; }
+.status-msg.error   { background: #FEF2F2; border: 1px solid #FCA5A5; color: #B91C1C; }
 
 /* INFO BOX */
 .info-box {
-  background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25);
-  border-radius: var(--r); padding: 12px 16px; font-size: 13px; color: #93C5FD;
+  background: #EFF6FF; border: 1px solid #BFDBFE;
+  border-radius: var(--r); padding: 12px 16px; font-size: 13px; color: #1D4ED8;
   margin-bottom: 20px;
 }
 
@@ -101,12 +107,12 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 .nav-tree { margin-top: 20px; }
 .tree-section { margin-bottom: 20px; }
 .tree-section-header {
-  background: var(--ef-red-dim); border: 1px solid rgba(200,16,46,0.25);
+  background: var(--ef-blue-dim); border: 1px solid rgba(0,45,98,0.2);
   border-radius: var(--r); padding: 10px 14px;
-  font-size: 14px; font-weight: 600; color: var(--text);
+  font-size: 14px; font-weight: 600; color: var(--ef-blue);
   display: flex; align-items: center; justify-content: space-between;
 }
-.tree-group { margin: 4px 0 4px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r); }
+.tree-group { margin: 4px 0 4px 16px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); }
 .tree-group-header {
   padding: 8px 14px; font-size: 13px; font-weight: 600; color: var(--muted);
   border-bottom: 1px solid var(--border);
@@ -120,13 +126,13 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 .tree-badge {
   font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500;
 }
-.badge-static  { background: rgba(59,130,246,0.15); color: #93C5FD; }
-.badge-dynamic { background: rgba(34,197,94,0.15); color: #86EFAC; }
-.badge-iframe  { background: rgba(245,158,11,0.15); color: #FCD34D; }
+.badge-static  { background: #DBEAFE; color: #1D4ED8; }
+.badge-dynamic { background: #D1FAE5; color: #065F46; }
+.badge-iframe  { background: #FEF3C7; color: #92400E; }
 
 /* LOADING */
 .loading { display:flex;align-items:center;gap:8px;color:var(--dim);font-size:14px; }
-.spinner { width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--ef-red);border-radius:50%;animation:spin .7s linear infinite; }
+.spinner { width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--ef-blue);border-radius:50%;animation:spin .7s linear infinite; }
 @keyframes spin { to{transform:rotate(360deg)} }
 </style>
 </head>
@@ -141,6 +147,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
   <button class="tab-btn active" onclick="showTab('add-content')">Add Content</button>
   <button class="tab-btn" onclick="showTab('manage-nav')">Manage Navigation</button>
   <button class="tab-btn" onclick="showTab('add-user')">Add User</button>
+  <button class="tab-btn" onclick="showTab('team-members')">Team Members</button>
   <button class="tab-btn" onclick="showTab('add-static')">Add/Edit Page</button>
   <button class="tab-btn" onclick="showTab('referral')">Add Referral Partner</button>
 </div>
@@ -315,6 +322,65 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
     <div style="font-size:15px;font-weight:600;margin-bottom:12px">Current Navigation Tree</div>
     <div id="nav-tree-view">
       <div class="loading"><div class="spinner"></div> Loading nav tree…</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB: TEAM MEMBERS
+  ══════════════════════════════════════════ -->
+  <div id="tab-team-members" style="display:none">
+    <div class="section-title">Team Members</div>
+    <div class="section-sub">Add or manage Exit Factor Charlotte consultants shown on the Team page.</div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field">
+          <label>Full Name *</label>
+          <input type="text" id="tm-name" placeholder="First Last">
+        </div>
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="tm-title" placeholder="e.g. Senior Consultant">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="tm-email" placeholder="name@example.com">
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="tel" id="tm-phone" placeholder="(704) 555-0000">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Geographic Area</label>
+          <input type="text" id="tm-area" placeholder="e.g. Concord / Kannapolis / NE Charlotte">
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="tm-status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>LinkedIn URL</label>
+        <input type="url" id="tm-linkedin" placeholder="https://linkedin.com/in/…">
+      </div>
+      <div class="field">
+        <label>Notes</label>
+        <input type="text" id="tm-notes" placeholder="Optional — specialties, focus areas, etc.">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitTeamMember()">Add Team Member</button>
+        <button class="btn btn-secondary" onclick="resetTeamForm()">Reset</button>
+      </div>
+      <div class="status-msg" id="team-status"></div>
+    </div>
+    <div class="info-box" style="margin-top:16px">
+      💡 To deactivate a consultant, go directly to the <strong>Team_Members</strong> tab in Google Sheets and change their Status to <strong>Inactive</strong>. They will be removed from the Team page immediately.
     </div>
   </div>
 
@@ -494,7 +560,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 </div><!-- /content -->
 
 <script>
-const PROXY = 'https://script.google.com/macros/s/AKfycbwDeMvkudRFpD1BNDc7Z1f7pF2Ivxte0AkpczsiOAlcnaBlHAVUU_BjG_f8RZsCsvH9kA/exec';
+const PROXY = 'https://script.google.com/macros/s/AKfycbzgS3l9QHPc0lgU3d7fg7Dd2P6slRECXyIAjtiv4HwqDWnSIyH118bZ7A8ApRDQRh9ThQ/exec';
 
 // ══════════════════════════════════════
 // TABS
@@ -710,6 +776,33 @@ async function loadNavTree() {
   });
   html += '</div>';
   view.innerHTML = html;
+}
+
+// ══════════════════════════════════════
+// TEAM MEMBERS
+// ══════════════════════════════════════
+async function submitTeamMember() {
+  const name = v('tm-name');
+  if (!name) { showStatus('team-status','error','Full Name is required.'); return; }
+  await postRow('Team_Members', {
+    Status: v('tm-status') || 'Active',
+    Full_Name: name,
+    Title: v('tm-title'),
+    Email: v('tm-email'),
+    Phone: v('tm-phone'),
+    Geographic_Area: v('tm-area'),
+    LinkedIn_URL: v('tm-linkedin'),
+    Notes: v('tm-notes')
+  });
+  showStatus('team-status','success','✓ Team member added.');
+  resetTeamForm();
+}
+function resetTeamForm() {
+  ['tm-name','tm-title','tm-email','tm-phone','tm-area','tm-linkedin','tm-notes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('tm-status').value = 'Active';
 }
 
 // ══════════════════════════════════════
